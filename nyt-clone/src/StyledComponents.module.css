@@ -1,0 +1,27 @@
+.headerBackground {
+    border-bottom: 1px solid #ddd;
+    padding: 1em;
+    display: flex;
+    justify-content: center;
+    align-items: baseline;
+    text-align: center;
+    justify-content: space-around;
+  }
+
+.customTitle {
+    font-size: 3em;
+    color: white;
+    font-weight: bold;
+    font-family: Cheltenham Bold, serif;
+    text-align: center; 
+  }
+  
+.almost {
+    font-size: 1em;
+    color: white;
+    font-style: italic;
+    font-family: "Arial", sans-serif;
+    transform: rotate(-5deg);
+    display: inline-block;
+    text-align: center;
+  }

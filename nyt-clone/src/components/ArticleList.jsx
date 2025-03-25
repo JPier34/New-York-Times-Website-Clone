@@ -7,7 +7,6 @@ const ArticleList = ({ articles }) => {
 
   return (
     <div className="article-list">
-    <h2 style={{ display: 'block' }}>Lista degli articoli</h2>
     <br />
     <div>
       <ul>

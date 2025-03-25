@@ -1,48 +1,52 @@
 import React, { useContext, useEffect } from 'react';
-
-import { AppContext } from '../context/AppContext';  // Importa il contesto
-
-import ArticleList from '../components/ArticleList';  // Importa il componente per visualizzare la lista degli articoli
-
+import { AppContext } from '../context/AppContext'; 
+import ArticleList from '../components/ArticleList';
+import RelatedContent from '../components/RelatedContent';
 import axios from 'axios';
-
-
+import '../App.css';
 
 const HomePage = () => {
-  const { articles, setArticles, setLoading, setError } = useContext(AppContext); // Ottieni il contesto
-  const apiKey = import.meta.env.VITE_NY_TIMES_API_KEY; // Ottieni la chiave API dai file di ambiente
+  const { articles, setArticles, setLoading, setError } = useContext(AppContext);
+  const apiKey = import.meta.env.VITE_NY_TIMES_API_KEY;
 
   const fetchArticles = async () => {
-    setLoading(true);  // Imposta lo stato di caricamento a true
+    setLoading(true);
 
     try {
       const response = await axios.get(
         `https://api.nytimes.com/svc/topstories/v2/home.json?api-key=${apiKey}`
       );
-      
-      console.log("Risposta API:", response.data); // Log della risposta API
 
-      setArticles(response.data.results);  // Salva gli articoli nel contesto
-      setLoading(false);  // Imposta lo stato di caricamento a false
+      console.log("Risposta API:", response.data);
+      setArticles(response.data.results);
+      setLoading(false);
     } catch (error) {
-      setError('Errore nel caricamento degli articoli');  // Imposta l'errore
-      setLoading(false);  // Imposta lo stato di caricamento a false
+      setError('Errore nel caricamento degli articoli');
+      setLoading(false);
     }
   };
 
   useEffect(() => {
-    fetchArticles();  // Carica gli articoli quando il componente si monta
+    fetchArticles();
   }, [setArticles, setLoading, setError]);
 
   return (
-    <div>
-      <h1>Top Stories</h1>
-      <ArticleList articles={articles} />  {/* Passa gli articoli come props */}
-    </div>
+    <>
+      <header className="header">
+        <h1>The (Almost) New York Times</h1>
+      </header>
+
+      <section className="news-layout">
+        {/* Top Stories */}
+        <div className="top-stories">
+          <ArticleList articles={articles} />
+        </div>
+
+        {/* Related Content (Sidebar) */}
+        <RelatedContent />
+      </section>
+    </>
   );
 };
-
-
-
 
 export default HomePage;
