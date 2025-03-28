@@ -1,40 +1,39 @@
 import React from 'react';
 
-const ArticleList = ({ articles }) => {
-  if (!articles || articles.length === 0) {
-    return <p>Nessun articolo trovato.</p>;
-  }
+const ArticleList = ({ articles, onFetchArticleContent }) => {
+    if (!articles || articles.length === 0) {
+        return <p>No articles found.</p>;
+    }
 
-  return (
-    <div className="article-list">
-    <br />
-    <div>
-      <ul>
-        {articles.map((article) => (
-          <li key={article.id} className="article-item">
-            {/* Link che porta al sito esterno dell'articolo */}
-            <a href={article.url} target="_blank" rel="noopener noreferrer" className="article-link">
-              <div className="article-content">
-                {/* Se l'articolo ha un'immagine, la visualizza */}
-                {article.multimedia && article.multimedia.length > 0 && (
-                  <img
-                    src={article.multimedia[0].url}
-                    alt={article.title}
-                    className="article-image"
-                  />
-                )}
-                {/* Titolo dell'articolo */}
-                <h3 className="article-title">{article.title}</h3>
-              </div>
-            </a>
-            {/* Abstract o descrizione breve dell'articolo */}
-            {article.abstract && <p className="article-summary">{article.abstract}</p>}
-          </li>
-        ))}
-      </ul>
-    </div>
-    </div>
-  );
+    return (
+        <div className="article-list">
+            <br />
+            <div>
+                <ul>
+                    {articles.map((article, index) => (
+                        <li key={article.url || index} className="article-item">
+                            <button
+                                onClick={() => onFetchArticleContent(article.url)}
+                                className="article-link-button"
+                            >
+                                <div className="article-content">
+                                    {article.multimedia && article.multimedia.length > 0 && (
+                                        <img
+                                            src={article.multimedia[0]?.url || ''}
+                                            alt={article.title}
+                                            className="article-image"
+                                        />
+                                    )}
+                                    <h3 className="article-title">{article.title || 'Untitled'}</h3>
+                                </div>
+                            </button>
+                            {article.abstract && <p className="article-summary">{article.abstract}</p>}
+                        </li>
+                    ))}
+                </ul>
+            </div>
+        </div>
+    );
 };
 
 export default ArticleList;

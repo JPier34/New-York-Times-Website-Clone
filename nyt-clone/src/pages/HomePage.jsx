@@ -1,27 +1,26 @@
-import React, { useContext, useEffect } from 'react';
-import { AppContext } from '../context/AppContext'; 
+import React, { useContext, useEffect, useState } from 'react';
+import { AppContext } from '../context/AppContext';
 import ArticleList from '../components/ArticleList';
-import RelatedContent from '../components/RelatedContent';
 import axios from 'axios';
-import '../App.css';
+import RelatedContent from '../components/RelatedContent';
+import Header from '../components/Header';
+import { useNavigate } from 'react-router-dom';
 
 const HomePage = () => {
   const { articles, setArticles, setLoading, setError } = useContext(AppContext);
   const apiKey = import.meta.env.VITE_NY_TIMES_API_KEY;
+  const navigate = useNavigate();
 
   const fetchArticles = async () => {
     setLoading(true);
-
     try {
       const response = await axios.get(
         `https://api.nytimes.com/svc/topstories/v2/home.json?api-key=${apiKey}`
       );
-
-      console.log("Risposta API:", response.data);
-      setArticles(response.data.results);
+      setArticles(response.data.results.slice(0, 10));
       setLoading(false);
     } catch (error) {
-      setError('Errore nel caricamento degli articoli');
+      setError('Error fetching articles');
       setLoading(false);
     }
   };
@@ -30,19 +29,21 @@ const HomePage = () => {
     fetchArticles();
   }, [setArticles, setLoading, setError]);
 
+  const fetchArticleContent = (url) => {
+    const articleId = url.split('/').pop().split('.')[0];
+    navigate(`/article/${articleId}`); // Naviga alla pagina dell'articolo
+  };
+
   return (
     <>
-      <header className="header">
-        <h1>The (Almost) New York Times</h1>
-      </header>
-
+      <Header />
       <section className="news-layout">
-        {/* Top Stories */}
-        <div className="top-stories">
-          <ArticleList articles={articles} />
+        <div className="main-content">
+          <ArticleList
+            articles={articles}
+            onFetchArticleContent={fetchArticleContent}
+          />
         </div>
-
-        {/* Related Content (Sidebar) */}
         <RelatedContent />
       </section>
     </>

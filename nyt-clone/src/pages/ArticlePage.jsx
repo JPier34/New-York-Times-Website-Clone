@@ -1,43 +1,50 @@
-import React, { useContext, useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
-import { AppContext } from '../context/AppContext';
+import React, { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import axios from "axios";
+import Header from "../components/Header";
+import ArticleDetail from "../components/ArticleDetail"; 
+import RelatedContent from "../components/RelatedContent";
 
 const ArticlePage = () => {
-    const { id } = useParams();  // Ottieni l'ID dell'articolo dalla URL
-    const { articles, loading, error } = useContext(AppContext);  // Ottieni gli articoli dal contesto
-    const [article, setArticle] = useState(null);  // Stato per l'articolo specifico
-  
-    useEffect(() => {
-      if (articles.length > 0) {
-        // Troviamo l'articolo in base all'ID
-        const foundArticle = articles.find(
-          (article) => article.url.split("/").pop() === id
+  const { articleId } = useParams(); // Ottieni l'ID dell'articolo dalla URL
+  const [article, setArticle] = useState(null);
+  const [error, setError] = useState(null);
+  const apiKey = import.meta.env.VITE_NY_TIMES_API_KEY;
+
+  useEffect(() => {
+    const fetchArticle = async () => {
+      try {
+        const response = await axios.get(
+          `https://api.nytimes.com/svc/search/v2/articlesearch.json?q=${articleId}&api-key=${apiKey}`
         );
-        setArticle(foundArticle);
+        const articleData = response.data?.response?.docs[0];
+        if (articleData) {
+          setArticle(articleData);
+        } else {
+          setError("Articolo non trovato.");
+        }
+      } catch (error) {
+        setError("Errore nel caricamento dell'articolo.");
       }
-    }, [id, articles]); // Eseguiamo ogni volta che cambia l'ID o gli articoli
-  
-    if (loading) {
-      return <div>Caricamento in corso...</div>;
-    }
-  
-    if (error) {
-      return <div>{error}</div>;
-    }
-  
-    if (!article) {
-      return <div>Articolo non trovato!</div>;
-    }
-  
-    return (
-      <div>
-        <h1>{article.title}</h1>
-        <p>{article.abstract}</p>
-        <a href={article.url} target="_blank" rel="noopener noreferrer">
-          Leggi l'articolo completo
-        </a>
-      </div>
-    );
-  };
-  
-  export default ArticlePage;
+    };
+
+    fetchArticle();
+  }, [articleId, apiKey]);
+
+  if (error) return <p>{error}</p>;
+  if (!article) return <p>Caricamento...</p>;
+
+  return (
+    <>
+      <Header />
+      <div className="article-detail-layout">
+          {/* Articolo */}
+          <ArticleDetail article={article}/>
+          {/* RelatedContent sulla destra */}
+          <RelatedContent className="related-detail-content"/>
+        </div>
+    </>
+  );
+};
+
+export default ArticlePage;

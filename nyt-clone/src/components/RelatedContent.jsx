@@ -1,141 +1,106 @@
-import React, { useState, useEffect } from "react";
-import axios from "axios";
+import React, { useState } from "react";
+import { FaListAlt, FaBook, FaFilm, FaChevronDown, FaChevronUp } from "react-icons/fa";
+import "../App.css";
 
 const RelatedContent = () => {
   const apiKey = import.meta.env.VITE_NY_TIMES_API_KEY;
 
-  const [popularArticles, setPopularArticles] = useState([]);
-  const [bestSellers, setBestSellers] = useState([]);
-  const [realTimeNews, setRealTimeNews] = useState([]);
-  const [searchQuery, setSearchQuery] = useState("");
-  const [searchResults, setSearchResults] = useState([]);
+  const [openSection, setOpenSection] = useState(null);
+  const [relatedData, setRelatedData] = useState({});
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
 
-  // Fetch articoli più popolari
-  useEffect(() => {
-    const fetchPopular = async () => {
-      try {
-        const res = await axios.get(
-          `https://api.nytimes.com/svc/mostpopular/v2/viewed/7.json?api-key=${apiKey}`
-        );
-        setPopularArticles(res.data.results.slice(0, 5)); // Mostriamo solo 5 risultati
-      } catch (error) {
-        console.error("Errore nel caricamento degli articoli più popolari", error);
-      }
-    };
-    fetchPopular();
-  }, []);
+  const sections = [
+    { id: "most-popular", label: "Most Popular", icon: <FaListAlt />, endpoint: "mostpopular/v2/viewed/7.json" },
+    { id: "books", label: "Books", icon: <FaBook />, endpoint: "books/v3/lists/current/hardcover-fiction.json" },
+    { id: "movies", label: "Movies", icon: <FaFilm />, endpoint: "search/v2/articlesearch.json?fq=section_name:\"Movies\" AND type_of_material:\"Review\"&sort=newest&page=0" },
+  ];
 
-  // Fetch libri più venduti
-  useEffect(() => {
-    const fetchBestSellers = async () => {
-      try {
-        const res = await axios.get(
-          `https://api.nytimes.com/svc/books/v3/lists/current/hardcover-fiction.json?api-key=${apiKey}`
-        );
-        setBestSellers(res.data.results.books.slice(0, 5));
-      } catch (error) {
-        console.error("Errore nel caricamento dei libri più venduti", error);
-      }
-    };
-    fetchBestSellers();
-  }, []);
+  const fetchRelatedData = async (id, endpoint) => {
+    if (openSection === id) {
+      setOpenSection(null);
+      return;
+    }
 
-  // Fetch news in tempo reale
-  useEffect(() => {
-    const fetchRealTimeNews = async () => {
-      try {
-        const res = await axios.get(
-          `https://api.nytimes.com/svc/news/v3/content/all/all.json?api-key=${apiKey}`
-        );
-        setRealTimeNews(res.data.results.slice(0, 5));
-      } catch (error) {
-        console.error("Errore nel caricamento delle news in tempo reale", error);
-      }
-    };
-    fetchRealTimeNews();
-  }, []);
+    setLoading(true);
+    setOpenSection(id);
+    setError(null); // Reset error state
 
-  // Funzione per cercare articoli tramite Article Search API
-  const handleSearch = async () => {
-    if (!searchQuery) return;
     try {
-      const res = await axios.get(
-        `https://api.nytimes.com/svc/search/v2/articlesearch.json?q=${searchQuery}&api-key=${apiKey}`
-      );
-      setSearchResults(res.data.response.docs.slice(0, 5));
+      const response = await fetch(`https://api.nytimes.com/svc/${endpoint}${endpoint.includes('?') ? '&' : '?'}api-key=${apiKey}`);
+      if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+      
+      const data = await response.json();
+
+      // Check the structure of the data based on the endpoint
+      let results;
+      switch (id) {
+        case "most-popular":
+          results = data.results || []; // For most popular, ensure results is defined
+          break;
+        case "books":
+          results = data.results?.books || []; // For books, ensure results.books is defined
+          break;
+        case "movies":
+          results = data.response?.docs || []; // For movie reviews, ensure response.docs is defined
+          break;
+        default:
+          results = [];
+      }
+
+      // Limit results to the first 5 items
+      setRelatedData(prevData => ({ ...prevData, [id]: results ? results.slice(0, 5) : [] }));
     } catch (error) {
-      console.error("Errore nella ricerca degli articoli", error);
+      console.error("Error loading data:", error);
+      setError("Failed to load content. Please try again later.");
+      setRelatedData(prevData => ({ ...prevData, [id]: [] }));
+    } finally {
+      setLoading(false);
     }
   };
 
   return (
-    <aside className="related-content bg-white text-black p-4 border-l border-gray-300">
-      {/* Articoli più popolari */}
-      <section>
-        <h2 className="text-lg font-bold mb-2">📈 Articoli più popolari</h2>
-        <ul>
-          {popularArticles.map((article) => (
-            <li key={article.id} className="mb-2">
-              <a href={article.url} target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline">
-                {article.title}
-              </a>
-            </li>
-          ))}
-        </ul>
-      </section>
+    <div className="related-content">
+      <h2>More articles</h2>
+      <ul className="menu-list">
+        {sections.map((section) => (
+          <li key={section.id}
+             className={["Most Popular", "Books", "Movies"].includes(section.label) ? "no-bullet" : ""}
+             >
+            <button
+              className={`menu-item ${openSection === section.id ? 'active' : ''}`}
+              onClick={() => fetchRelatedData(section.id, section.endpoint)}
+              aria-expanded={openSection === section.id}
+            >
+              {section.icon} {section.label}
+              {openSection === section.id ? <FaChevronUp /> : <FaChevronDown />}
+            </button>
 
-      {/* Libri più venduti */}
-      <section className="mt-4">
-        <h2 className="text-lg font-bold mb-2">📚 Libri più venduti</h2>
-        <ul>
-          {bestSellers.map((book) => (
-            <li key={book.rank} className="mb-2">
-              <strong>{book.title}</strong> di {book.author}
-            </li>
-          ))}
-        </ul>
-      </section>
-
-      {/* News in tempo reale */}
-      <section className="mt-4">
-        <h2 className="text-lg font-bold mb-2">⚡ News in tempo reale</h2>
-        <ul>
-          {realTimeNews.map((news) => (
-            <li key={news.url} className="mb-2">
-              <a href={news.url} target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline">
-                {news.title}
-              </a>
-            </li>
-          ))}
-        </ul>
-      </section>
-
-      {/* Ricerca articoli */}
-      <section className="mt-4">
-        <h2 className="text-lg font-bold mb-2">🔎 Cerca articoli</h2>
-        <input
-          type="text"
-          className="w-full p-2 border rounded-md mb-2"
-          placeholder="Inserisci parola chiave"
-          value={searchQuery}
-          onChange={(e) => setSearchQuery(e.target.value)}
-        />
-        <button onClick={handleSearch} className="w-full bg-blue-600 text-white p-2 rounded-md">
-          Cerca
-        </button>
-        {searchResults.length > 0 && (
-          <ul className="mt-2">
-            {searchResults.map((article) => (
-              <li key={article.web_url} className="mb-2">
-                <a href={article.web_url} target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline">
-                  {article.headline.main}
-                </a>
-              </li>
-            ))}
-          </ul>
-        )}
-      </section>
-    </aside>
+            {openSection === section.id && (
+              <div className="dropdown-content">
+                {loading ? (
+                  <p className="loading">Loading...</p>
+                ) : error ? (
+                  <p className="error">{error}</p>
+                ) : relatedData[section.id] && relatedData[section.id].length > 0 ? (
+                  <ul className="dropdown-menu">
+                    {relatedData[section.id].map((item, index) => (
+                      <li key={index} className="dropdown-item">
+                        <a href={item.url || item.link} target="_blank" rel="noopener noreferrer">
+                          {item.headline?.main || item.title || item.display_title || "Title not available"}
+                        </a>
+                      </li>
+                    ))}
+                  </ul>
+                ) : (
+                  <p>No content available</p>
+                )}
+              </div>
+            )}
+          </li>
+        ))}
+      </ul>
+    </div>
   );
 };
 
