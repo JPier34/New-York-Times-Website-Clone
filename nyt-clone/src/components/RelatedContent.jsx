@@ -21,35 +21,47 @@ const RelatedContent = () => {
       setOpenSection(null);
       return;
     }
-
+  
     setLoading(true);
     setOpenSection(id);
-    setError(null); // Reset error state
-
+    setError(null);
+  
     try {
-      const response = await fetch(`https://api.nytimes.com/svc/${endpoint}${endpoint.includes('?') ? '&' : '?'}api-key=${apiKey}`);
+      const response = await fetch(
+        `https://api.nytimes.com/svc/${endpoint}${endpoint.includes("?") ? "&" : "?"}api-key=${apiKey}`
+      );
       if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
-      
+  
       const data = await response.json();
-
-      // Check the structure of the data based on the endpoint
+  
       let results;
       switch (id) {
         case "most-popular":
-          results = data.results || []; // For most popular, ensure results is defined
+          results = data.results?.map(item => ({
+            title: item.title || "Title not available",
+            url: item.url
+          })) || [];
           break;
         case "books":
-          results = data.results?.books || []; // For books, ensure results.books is defined
+          results = data.results?.books?.map(book => ({
+            title: book.title || "Title not available",
+            url: `https://www.nytimes.com/books/best-sellers/${data.results.list_name_encoded}/`
+          })) || [];
           break;
         case "movies":
-          results = data.response?.docs || []; // For movie reviews, ensure response.docs is defined
+          results = data.response?.docs?.map(movie => ({
+            title: movie.headline?.main || "Title not available",
+            url: movie.web_url || "#"
+          })) || [];
           break;
         default:
           results = [];
       }
-
-      // Limit results to the first 5 items
-      setRelatedData(prevData => ({ ...prevData, [id]: results ? results.slice(0, 5) : [] }));
+  
+      setRelatedData(prevData => ({
+        ...prevData,
+        [id]: results.slice(0, 5)
+      }));
     } catch (error) {
       console.error("Error loading data:", error);
       setError("Failed to load content. Please try again later.");
@@ -58,6 +70,7 @@ const RelatedContent = () => {
       setLoading(false);
     }
   };
+  
 
   return (
     <div className="related-content">

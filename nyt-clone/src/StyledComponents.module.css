@@ -1,15 +1,10 @@
 .headerBackground {
     border-bottom: 1px solid #ddd;
-    padding: 2rem;
-    display: flex;
-    justify-content: center;
-    align-items: baseline;
-    text-align: center;
-    justify-content: space-around;
+    padding: 3rem;
   }
 
 .customTitle {
-    font-size: 3em;
+    font-size: 2em;
     color: white;
     font-weight: bold;
     font-family: Cheltenham Bold, serif;
