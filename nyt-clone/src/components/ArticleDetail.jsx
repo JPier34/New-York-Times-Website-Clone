@@ -13,21 +13,22 @@ const ArticleDetail = ({ article }) => {
   }
 
   const handleReadFullArticle = () => {
-    if (article && article.web_url) {
+    if (article?.web_url) {
       window.open(article.web_url, '_blank');
     } else {
       console.error('Article URL not available');
+      // Puoi anche mostrare un messaggio visivo di errore per l'utente
     }
   };
 
   return (
     <div className="article-detail">
-      <h1 className="article-title">{article.headline.main}</h1>
+      <h1 className="article-title">{article.headline?.main || 'No Title Available'}</h1>
       <p className="article-author">
         {article.byline?.original || 'Unknown Author'}
       </p>
       <p className="article-pub-date">
-        <strong>Published:</strong> {new Date(article.pub_date).toLocaleDateString()}
+        <strong>Published:</strong> {new Date(article.pub_date).toLocaleDateString() || 'No Date Available'}
       </p>
 
       <div
@@ -35,20 +36,20 @@ const ArticleDetail = ({ article }) => {
         dangerouslySetInnerHTML={{ __html: article.lead_paragraph || '' }}
       /> {/* Render lead paragraph */}
 
-  {article.multimedia && article.multimedia.length > 0 && (
-    <img
-      src={`https://www.nytimes.com/${article.multimedia[0].url}`}
-      alt={article.headline.main}
-      className="article-detail-image"
-    />
-  )}
+      {article.multimedia && article.multimedia.length > 0 && (
+        <img
+          src={`https://www.nytimes.com/${article.multimedia[0].url}`}
+          alt={article.headline?.main || 'Article Image'}
+          className="article-detail-image"
+        />
+      )}
 
-    <div className="article-link">
-      <button className="read-full-article" onClick={handleReadFullArticle}>
-        Read full article
-      </button>
+      <div className="article-link">
+        <button className="read-full-article" onClick={handleReadFullArticle}>
+          Read full article
+        </button>
+      </div>
     </div>
-  </div>
   );
 };
 

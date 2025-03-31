@@ -30,10 +30,10 @@ const HomePage = () => {
   }, [setArticles, setLoading, setError]);
 
   const fetchArticleContent = (url) => {
-    const articleId = url.split('/').pop().split('.')[0];
-    navigate(`/article/${articleId}`); // Naviga alla pagina dell'articolo
+    const encodedUrl = encodeURIComponent(url); // Codifica l'URL per usarlo nella URL
+    navigate(`/article/${encodedUrl}`); // Passa il web_url come parametro
   };
-
+  
   return (
     <>
       <Header />
