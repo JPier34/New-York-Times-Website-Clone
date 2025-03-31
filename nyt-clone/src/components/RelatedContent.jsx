@@ -64,9 +64,8 @@ const RelatedContent = () => {
       <h2>More articles</h2>
       <ul className="menu-list">
         {sections.map((section) => (
-          <li key={section.id}
-             className={["Most Popular", "Books", "Movies"].includes(section.label) ? "no-bullet" : ""}
-             >
+          <li key={section.id} className={["Most Popular", "Books", "Movies"].includes(section.label) ? "no-bullet" : openSection === section.id ? "active" : ""}>
+            {/* Pulsante per aprire la sezione */}
             <button
               className={`menu-item ${openSection === section.id ? 'active' : ''}`}
               onClick={() => fetchRelatedData(section.id, section.endpoint)}
@@ -75,7 +74,8 @@ const RelatedContent = () => {
               {section.icon} {section.label}
               {openSection === section.id ? <FaChevronUp /> : <FaChevronDown />}
             </button>
-
+  
+            {/* Contenuto dropdown sotto il pulsante */}
             {openSection === section.id && (
               <div className="dropdown-content">
                 {loading ? (

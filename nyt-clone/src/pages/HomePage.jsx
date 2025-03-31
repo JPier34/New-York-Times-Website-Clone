@@ -38,12 +38,10 @@ const HomePage = () => {
     <>
       <Header />
       <section className="news-layout">
-        <div className="main-content">
           <ArticleList
             articles={articles}
             onFetchArticleContent={fetchArticleContent}
           />
-        </div>
         <RelatedContent />
       </section>
     </>

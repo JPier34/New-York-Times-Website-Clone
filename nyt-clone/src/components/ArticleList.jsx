@@ -7,7 +7,6 @@ const ArticleList = ({ articles, onFetchArticleContent }) => {
 
     return (
         <div className="article-list">
-            <br />
             <div>
                 <ul>
                     {articles.map((article, index) => (

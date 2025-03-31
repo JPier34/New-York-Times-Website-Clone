@@ -1,40 +1,28 @@
 /* Regole generali */
 .news-layout {
   display: grid;
-  grid-template-rows: auto 1fr; /* Header in alto, contenuto sotto */
+  grid-template-rows: auto; /* Header in alto, contenuto sotto */
   grid-template-columns: 3fr 1fr; /* Top Stories (3/4) | Contenuti Correlati (1/4) */
   grid-template-areas:
-    "top-stories related-content";
-  height: 100vh;
+    "top-stories related-content"
+    "top-stories .";
+  /* height: 1000px; /*
   max-width: 1200px; /* Larghezza massima del layout */
   margin: 0 auto; /* Centra il layout */
+  padding: 2rem; /* Aggiunge spazio intorno al layout */
 }
 
 header {
   grid-area: header;
+  padding: 2rem;
   width: auto;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  padding: 1rem;
   top: 0;
   left: 0;
   right: 0;
   white-space: nowrap;
   overflow: hidden;
   text-align: left;
-}
-
-/* main {
-  display: grid;
-  grid-template-areas: "top-stories related-content";
-  grid-template-columns: 2fr 1fr;
-  gap: 1rem;
-} */
-
-.top-stories {
-  grid-area: top-stories;
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* Adatta le storie */
-  gap: 1rem;
 }
 
 
@@ -48,46 +36,6 @@ nav {
 
 /* Stili per il logo in StyledComponents */
 
-
-/* Logo con effetto hover */
-/* .logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
-}
-
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
-}
-
-
-.card {
-  padding: 2em;
-}
-
-.read-the-docs {
-  color: #888;
-}
-*/
-
 h2 {
   text-align: flex-center;
   margin-bottom: 30px; /* Spazio tra il titolo e la lista */
@@ -96,19 +44,20 @@ h2 {
 /* Stile per gli articoli principali */
 /* Stile per la lista degli articoli */
 .article-list {
-  list-style: none;
-  padding: 0;
-  display: grid;  /* Utilizza un layout a griglia */
-  flex-wrap: wrap;  /* Assicurati che gli articoli siano responsivi */
+  grid-area: top-stories; /* Assegna l'area della griglia */
+  display: grid;  /* Utilizza un layout flessibile */
+  list-style: none;  /* Rimuove i punti dalla lista */
+  padding: 0;  /* Rimuove il padding predefinito */
+  margin: 0;  /* Rimuove il margine predefinito */
   justify-content: center; /* Centra gli articoli */
-  gap: 0rem;
-  width: 100%; /* Imposta la larghezza a 100% in dispositivi piccoli */
+  align-items: center;  /* Allinea gli articoli al centro */
 }
 
 ul {
   padding: 0;
   list-style: none;
-  padding-left: 0;
+  padding-left: 0; 
+  margin-block-start: 0;
 }
 
 /* Stile per ogni articolo */
@@ -181,16 +130,13 @@ ul {
   grid-area: related-content;
   background-color: grey;
   padding: 1rem;
-  width: auto;
-  padding: 1rem;
   color: white;
-  max-width: 30vh;
+  max-width: 100%;
+  width: 100%;
   border-radius: 8px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   position: relative;
-  margin-top: 1rem;
-  display: flex;
-  flex-direction: column;
+  height: fit-content;
 }
 
 
@@ -200,28 +146,75 @@ ul {
 }
 
 .menu-list {
-  list-style-type: none;
+  display: block;
+  list-style: none;
   padding: 0;
-  margin: 0;
+}
+
+.menu-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
   width: 100%;
+  background: none;
+  border: none;
+  cursor: pointer;
+  text-align: center;
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  font-weight: bold;
 }
 
-.menu-list ul {
+.dropdown-content {
+  overflow: hidden;
+  width: 100%; /* Occupa tutta la larghezza del contenitore */
+  padding: 0.5rem;
+  border-radius: 5px;
+  margin-top: 0.5rem;
+}
+
+.menu-item.active + .dropdown-content {
+  display: block;
+  max-height: 500px; /* Imposta un'altezza massima per il dropdown */
+}
+
+.dropdown-menu {
+  list-style: none;
+  padding-left: 1rem;
+} 
+
+.dropdown-item {
+  padding: 0.25rem 0;
+}
+
+
+.no-bullet {
+  list-style: none;
+}
+
+.menu-list {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+}
+
+ .menu-list ul {
   padding: 0;
 }
 
-.menu-list li {
+ .menu-list li {
+  width: 100%;
+  max-width: 100%;
   margin: 1rem 0;
   cursor: pointer;
   font-size: 1.1rem;
-  display: flex;
   align-items: center;
   padding: 0.5rem;
   border-radius: 4px;
   transition: background-color 0.2s ease-in-out;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
+  max-height: auto;
+  box-sizing: border-box;
+} 
 
 .menu-list li:not(.no-bullet)::before {
   content: "•"; 
@@ -230,16 +223,14 @@ ul {
   margin-right: 10px;
 }
 
-
-
 .menu-list a:hover {
   color: black;
 }
 
 .menu-list li svg {
   margin-right: 10px;
-  font-size: 1.5rem;
-} 
+  font-size: 2rem;
+}
 
 .menu-list li:last-child {
   margin-bottom: 0;
@@ -252,7 +243,6 @@ ul {
   padding: 1rem;
   border-radius: 8px;
   max-height: 400px;
-  overflow-y: auto;
   width: 100%;
 }
 
@@ -261,8 +251,8 @@ ul {
 
 .article-detail-layout {
   display: grid;
-  grid-template-columns: 3fr 1fr;
   grid-template-rows: auto;
+  grid-template-columns: 3fr 1fr;
   grid-template-areas: "article-detail related-content";
   margin-left: 1rem;
   margin-right: 1rem;
@@ -270,91 +260,109 @@ ul {
   max-width: 800px;
   margin: 0 auto;
   padding: 2rem;
+  
 }
 
 .article-detail {
   display: grid;
   grid-area: article-detail;
+  grid-template-columns: 1fr minmax(auto, 800px) 1fr; /* Due colonne laterali per centratura */
+  grid-template-rows: auto auto auto auto 1fr auto; /* Flessibile */
+  grid-template-areas:
+    "title title title"
+    "pub-date author author"
+    "image image image"
+    "lead lead lead"
+    ". . ."
+    "link . .";
+  gap: 1.5rem;
   padding: 2rem;
   background-color: #ffffff;
+  color: black;
   border-radius: 8px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  margin-bottom: 2rem;
   min-height: 80vh;
-  max-height: 80vh;
-  min-width: 65vh;
-  max-width: 65vh;
   overflow-y: auto;
+  justify-content: center;
 }
 
-/*.related-detail-content {
-  display: grid;
-  grid-area: related-detail-content;
-  background-color: #f9f9f9;
-  border-radius: 8px;
-  padding: 1rem;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-} */
-
+/* Titolo */
 .article-title {
-  font-size: 2rem;
-  margin-bottom: 1rem;
+  grid-area: title;
+  font-size: 2.5rem;
   font-weight: bold;
+  text-align: center;
+  max-width: 800px;
+  margin: 0 auto;
 }
 
-.article-author,
+/* Autore e Data */
 .article-pub-date {
-  margin-bottom: 1rem;
-  color: #555555;
+  grid-area: pub-date;
+  display: flex;
+  justify-content: flex-start;
+  gap: 0.5rem;
+  color: #555;
+  font-size: 1rem;
+  font-style: italic;
+
 }
 
+.article-author {
+  grid-area: author;
+  display: flex;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+}
+
+/* Immagine */
 .article-detail-image {
-  grid-area: article-image;
+  grid-area: image;
   width: 100%;
-  max-width: 100%;
+  max-width: 800px;
   height: auto;
-  margin: 1rem 0;
   border-radius: 8px;
+  margin: 0 auto;
 }
 
-.article-body {
-  font-size: 1.1rem;
-  line-height: 1.6;
-  margin-top: 1rem;
+/* Lead Paragraph */
+.lead-paragraph {
+  grid-area: lead;
+  font-size: 1.3rem;
+  font-weight: bold;
+  text-align: center;
+  max-width: 800px;
+  margin: 0 auto;
 }
 
-.read-full-article {
-  display: inline-block;
-  margin-top: 1.5rem;
+/* Link per leggere l'articolo completo */
+.article-link {
+  grid-area: link;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
   padding: 0.5rem 1rem;
+  border-radius: 4px;
+  font-size: 1rem;
+  text-align: center;
+  margin: 0 auto;
+  width: 100%;
+}
+
+/* Pulsante per leggere l'articolo completo */
+.read-full-article {
   background-color: #007bff;
   color: white;
-  text-decoration: none;
+  padding: 0.5rem 1rem;
   border-radius: 4px;
-  font-weight: bold;
+  font-size: 1rem;
+  text-align: center;
+  cursor: pointer;
+  white-space: nowrap;
+  max-width: 100%; /* Larghezza massima del pulsante */
 }
 
+/* Hover per il link */
 .read-full-article:hover {
   background-color: #0056b3;
-  text-decoration: underline;
-}
-
-/* Responsività */
-@media (max-width: 768px) {
-  .article-detail {
-    padding: 1rem;
-  }
-
-  .article-title {
-    font-size: 1.5rem;
-  }
-
-  .article-body {
-    font-size: 1rem;
-  }
-
-  .read-full-article {
-    font-size: 1rem;
-    padding: 0.4rem 0.8rem;
-  }
 }
