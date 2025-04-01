@@ -1,13 +1,31 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { Search } from "lucide-react";
+import { Search, Menu, User } from "lucide-react";
+import { FaSearch } from "react-icons/fa";
 import styles from "../StyledComponents.module.css";
 import "../App.css";
 import "../index.css";
 
 const Header = () => {
-  const [isVisible, setIsVisible] = useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 1024);
   const [searchQuery, setSearchQuery] = useState("");
+
+  const [searchActive, setSearchActive] = useState(false);
+
+  const handleSearchClick = () => {
+    setSearchActive(!searchActive);
+  };
+
+  // Handle window resize to switch between mobile and desktop view
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 1024);
+    };
+
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   // Handle search submission
   const handleSearch = (e) => {
@@ -18,62 +36,86 @@ const Header = () => {
   };
 
   return (
+    <header className={`${styles.headerBackground}`}>
 
-    <header className={`${styles.headerBackground}`}>  
-        
-        {/* Search Bar */}
-        <div className="search">
+    <div className="search">
+      <div className={`search-wrapper ${searchActive ? 'active' : ''}`}>
+        <button onClick={handleSearchClick} className="search-icon">
+          <Search size={20} />
+        </button>
+        {searchActive && (
+          <input
+            placeholder="Search..."
+            className="search-input"
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            onKeyDown={handleSearch}
+          />
+        )}
+      </div>
+    </div>
+
+      {/* Logo */}
+      <div className="logo">
+        <Link to="/">
+          <span className={styles.almost}>(almost) </span>
+          <span className={styles.customTitle}>The New York Times</span>
+        </Link>
+      </div>
+
+      {isMobile ? (
+        // Mobile View: Hamburger Menu
+        <>
           <button 
-            onClick={() => setIsVisible(!isVisible)}
-            className="p-2 border border-gray-300 rounded-lg hover:bg-gray-200"
+            onClick={() => setIsMenuOpen(!isMenuOpen)} 
+            className="menu-icon"
           >
-            <Search/>
+            <Menu size={30} />
           </button>
-          {isVisible && (
-            <input 
-              type="text" 
-              placeholder="Search"
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              onKeyDown={handleSearch} // Trigger search on Enter
-            />
+
+          {isMenuOpen && (
+            <nav className="mobile-menu">
+              <input 
+                type="text" 
+                placeholder="Search"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                onKeyDown={handleSearch} 
+                className="search-input"
+              />
+              <ul>
+                <li><a href="https://www.nytimes.com/section/us" target="_blank" rel="noopener noreferrer">U.S.</a></li>
+                <li><a href="https://www.nytimes.com/section/world" target="_blank" rel="noopener noreferrer">World</a></li>
+                <li><a href="https://www.nytimes.com/section/business" target="_blank" rel="noopener noreferrer">Business</a></li>
+                <li><a href="https://www.nytimes.com/section/arts" target="_blank" rel="noopener noreferrer">Arts</a></li>
+                <li><a href="https://www.nytimes.com/section/style" target="_blank" rel="noopener noreferrer">Lifestyle</a></li>
+                <li><a href="https://www.nytimes.com/section/opinion" target="_blank" rel="noopener noreferrer">Opinion</a></li>
+                <li><a href="https://www.nytimes.com/section/sports" target="_blank" rel="noopener noreferrer">Sports</a></li>
+                <li><a href="https://www.nytimes.com/spotlight/podcasts" target="_blank" rel="noopener noreferrer">Audio</a></li>
+                <li><a href="https://www.nytimes.com/games" target="_blank" rel="noopener noreferrer">Games</a></li>
+              </ul>
+            </nav>
           )}
-        </div>
-
-        {/* Date */}
-        <div className="date">{new Date().toLocaleDateString("en-US", {
-          weekday: "long",
-          day: "numeric",
-          month: "long",
-          year: "numeric",
-        })}</div>
-
-        {/* Navigation */}
+        </>
+      ) : (
+        // Desktop View: Menu Always Visible
         <nav className="menu">
           <ul>
-            <li><a href="https://www.nytimes.com/section/us" target="_blank" rel="noopener noreferrer" className="hover:underline">U.S.</a></li>
-            <li><a href="https://www.nytimes.com/section/world" target="_blank" rel="noopener noreferrer" className="hover:underline">World</a></li>
-            <li><a href="https://www.nytimes.com/section/business" target="_blank" rel="noopener noreferrer" className="hover:underline">Business</a></li>
-            <li><a href="https://www.nytimes.com/section/arts" target="_blank" rel="noopener noreferrer" className="hover:underline">Arts</a></li>
-            <li><a href="https://www.nytimes.com/section/style" target="_blank" rel="noopener noreferrer" className="hover:underline">Lifestyle</a></li>
-            <li><a href="https://www.nytimes.com/section/opinion" target="_blank" rel="noopener noreferrer" className="hover:underline">Opinion</a></li>
-            <li><a href="https://www.nytimes.com/section/sports" target="_blank" rel="noopener noreferrer" className="hover:underline">Sports</a></li>
-            <li><a href="https://www.nytimes.com/spotlight/podcasts" target="_blank" rel="noopener noreferrer" className="hover:underline">Audio</a></li>
-            <li><a href="https://www.nytimes.com/games" target="_blank" rel="noopener noreferrer" className="hover:underline">Games</a></li>
-            <li><a href="https://cooking.nytimes.com/" target="_blank" rel="noopener noreferrer" className="hover:underline">Cooking</a></li>
-            <li><a href="https://www.nytimes.com/wirecutter" target="_blank" rel="noopener noreferrer" className="hover:underline">Wirecutter</a></li>
-            <li><a href="https://www.nytimes.com/athletic/uk" target="_blank" rel="noopener noreferrer" className="hover:underline">The Athletic</a></li>
+            <li><a href="https://www.nytimes.com/section/us" target="_blank" rel="noopener noreferrer">U.S.</a></li>
+            <li><a href="https://www.nytimes.com/section/world" target="_blank" rel="noopener noreferrer">World</a></li>
+            <li><a href="https://www.nytimes.com/section/business" target="_blank" rel="noopener noreferrer">Business</a></li>
+            <li><a href="https://www.nytimes.com/section/arts" target="_blank" rel="noopener noreferrer">Arts</a></li>
+            <li><a href="https://www.nytimes.com/section/style" target="_blank" rel="noopener noreferrer">Lifestyle</a></li>
+            <li><a href="https://www.nytimes.com/section/opinion" target="_blank" rel="noopener noreferrer">Opinion</a></li>
+            <li><a href="https://www.nytimes.com/section/sports" target="_blank" rel="noopener noreferrer">Sports</a></li>
+            <li><a href="https://www.nytimes.com/spotlight/podcasts" target="_blank" rel="noopener noreferrer">Audio</a></li>
+            <li><a href="https://www.nytimes.com/games" target="_blank" rel="noopener noreferrer">Games</a></li>
           </ul>
         </nav>
+      )}
 
-
-        {/* Logo */}
-        <div className="logo">
-          <Link to="/">
-            <span className={styles.almost}>(almost) </span>
-            <span className={styles.customTitle}>The New York Times</span>
-          </Link>
-        </div>
+      {/* User Icon Placeholder for Future Login */}
+      <User size={30} />
     </header>
   );
 };
