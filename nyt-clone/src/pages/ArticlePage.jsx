@@ -4,6 +4,9 @@ import axios from "axios";
 import Header from "../components/Header";
 import ArticleDetail from "../components/ArticleDetail";
 import RelatedContent from "../components/RelatedContent";
+import Footer from "../components/Footer";
+import "../App.css";
+import "../index.css";
 
 const ArticlePage = () => {
   const { articleId } = useParams(); // Ora contiene il web_url codificato
@@ -50,51 +53,9 @@ const ArticlePage = () => {
         {/* RelatedContent sulla destra */}
         <RelatedContent className="related-detail-content" />
       </div>
+      <Footer className="footer"/>
     </>
   );
 };
 
 export default ArticlePage;
-
-/*
-  useEffect(() => {
-    const fetchArticle = async () => {
-      setLoading(true);
-      try {
-        const response = await axios.get(
-          `https://api.nytimes.com/svc/search/v2/articlesearch.json?q=${articleId}&api-key=${apiKey}`
-        );
-        const articleData = response.data?.response?.docs[0];
-        if (articleData) {
-          setArticle(articleData);
-        } else {
-          setError("Articolo non trovato.");
-        }
-      } catch (error) {
-        setError("Errore nel caricamento dell'articolo.");
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchArticle();
-  }, [articleId, apiKey]);
-
-  if (loading) return <p>Caricamento...</p>; // Mostra il loader mentre i dati vengono caricati
-  if (error) return <p>{error}</p>; // Mostra l'errore se c'è
-
-  return (
-    <>
-      <Header />
-      <div className="article-detail-layout">
-      
-        <ArticleDetail article={article} />
-        
-
-        <RelatedContent className="related-detail-content" />
-      </div>
-    </>
-  );
-};
-
-export default ArticlePage; */

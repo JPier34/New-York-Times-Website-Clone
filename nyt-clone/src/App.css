@@ -1,17 +1,16 @@
 /* Header */
 header {
   display: grid;
-  grid-template-columns: 1fr 2fr 1fr; /* Three columns for the logo and the menu */
-  grid-template-rows: auto auto auto;
+  grid-template-columns: 1fr 1fr 4fr 1fr 1fr; /* Five columns: search, spacer, logo, spacer, login */
+  grid-template-rows: 1fr 2.5fr 1.5fr;
   grid-template-areas:
-    "search . login"
-    "date logo ."
-    "menu menu menu";
+    "search search . . login"
+    "date logo logo logo ."
+    "menu menu menu menu menu";
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   white-space: nowrap;
   overflow: auto;
   text-align: left;
-  width: 100%;
   position: relative; /* Ensures proper positioning of child elements */
 
 .search{
@@ -19,7 +18,6 @@ header {
   display: flex;
   align-items: center;
   justify-content: flex-start;
-  padding: 1rem;
 }
 
 .login {
@@ -33,7 +31,7 @@ header {
 .date{
   grid-area: date;
   display: grid;
-  align-items: center;
+  align-items: flex-start;
   justify-content: flex-start;
   padding: 1rem;
 }
@@ -49,20 +47,47 @@ header {
   text-decoration: none; /* Rimuove la sottolineatura */
 }
 
+
+
 .menu {
   grid-area: menu;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 1rem;
+  padding: 0.5rem;
 }
+
+.menu ul {
+  display: flex;  /* Rende gli <li> orizzontali */
+  justify-content: center; /* Centra gli elementi */
+  align-items: center; /* Allinea gli elementi al centro */
+  gap: 12px;  /* Spazio tra gli elementi */
+  list-style: none; /* Rimuove i pallini */
+  padding: 0;
+  margin: 0;
+}
+
+.menu li {
+    font-weight: 500;
+    font-size: 1rem;
+    line-height: 1rem;
+    padding: 1.2rem 7px;
+}
+
+ .menu li:hover {
+  text-decoration: underline; /* Cambia colore al passaggio del mouse */
+ } 
+}
+
+
 /* Stili per il nav*/
-nav {
+.nav {
   display: flex;
   justify-content: center;
   gap: 1em;
   margin-bottom: 2em;
 }
+
 }
 
 
@@ -414,3 +439,4 @@ ul {
 .read-full-article:hover {
   background-color: #0056b3;
 }
+

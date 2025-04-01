@@ -1,6 +1,6 @@
 .headerBackground {
     border-bottom: 1px solid #ddd;
-    padding: 3rem;
+    padding: 1rem;
   }
 
 .customTitle {
@@ -20,3 +20,15 @@
     display: inline-block;
     text-align: center;
   }
+
+/* Footer */
+footer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap; /* Assicura che il contenuto si adatti in viewport più piccole */
+  color: white;
+  padding: 1rem;
+  font-size: 1rem;
+  margin-top: auto; /* Sposta il footer in fondo alla pagina */
+}

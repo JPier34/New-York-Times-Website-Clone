@@ -5,6 +5,9 @@ import axios from 'axios';
 import RelatedContent from '../components/RelatedContent';
 import Header from '../components/Header';
 import { useNavigate } from 'react-router-dom';
+import Footer from '../components/Footer';
+import '../App.css';
+import '../index.css';
 
 const HomePage = () => {
   const { articles, setArticles, setLoading, setError } = useContext(AppContext);
@@ -44,6 +47,7 @@ const HomePage = () => {
           />
         <RelatedContent />
       </section>
+      <Footer className="footer"/>
     </>
   );
 };
