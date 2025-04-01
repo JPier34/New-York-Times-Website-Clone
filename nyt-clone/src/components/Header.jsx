@@ -115,7 +115,9 @@ const Header = () => {
       )}
 
       {/* User Icon Placeholder for Future Login */}
+      <div className="login" onClick={() => alert("Login functionality coming soon!")}>
       <User size={30} />
+      </div>
     </header>
   );
 };

@@ -47,8 +47,6 @@ header {
   text-decoration: none; /* Rimuove la sottolineatura */
 }
 
-
-
 .menu {
   grid-area: menu;
   display: flex;
@@ -140,6 +138,10 @@ header {
 
   .menu li a:hover {
     text-decoration: underline;
+  }
+
+  .search-wrapper {
+    display: none; /* Nasconde la barra di ricerca */
   }
 }
 
@@ -356,6 +358,10 @@ ul {
 
 .menu-list li svg {
   grid-area: login;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
   margin-right: 10px;
   font-size: 2rem;
 }
