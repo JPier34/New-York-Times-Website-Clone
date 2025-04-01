@@ -90,6 +90,7 @@ header {
 /* Stili per il logo in StyledComponents */
 
 /* Responsive */
+
 @media (max-width: 1024px) {
   header {
     grid-template-columns: 1fr 1fr 1fr;
@@ -144,6 +145,31 @@ header {
     display: none; /* Nasconde la barra di ricerca */
   }
 }
+    
+@media (max-width: 550px) {
+  header {
+    grid-template-columns: 1fr 2fr 1fr;
+    padding: 0.5rem;
+  }
+
+  .menu li a {
+    font-size: 1.2rem; /* Riduce la dimensione del testo */
+  }
+
+  .menu ul {
+    gap: 1rem; /* Riduce lo spazio tra gli elementi */
+  }
+
+  .hamburger-menu {
+    padding: 0.5rem;
+  }
+
+  .search-icon, .login svg {
+    width: 24px; /* Riduce le icone */
+    height: 24px;
+  }
+}
+
 
 
 
@@ -157,7 +183,7 @@ h2 {
 /* Regole generali */
 .news-layout {
   display: grid;
-  grid-template-rows: auto; /* Header in alto, contenuto sotto */
+  grid-template-rows: auto;
   grid-template-columns: 3fr 1fr; /* Top Stories (3/4) | Contenuti Correlati (1/4) */
   grid-template-areas:
     "top-stories related-content"
@@ -165,6 +191,23 @@ h2 {
   max-width: 1200px; /* Larghezza massima del layout */
   margin: 0 auto; /* Centra il layout */
   padding: 2rem; /* Aggiunge spazio intorno al layout */
+}
+
+@media (max-width: 1024px) {
+  .news-layout {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    padding: 0;
+  }
+
+  .article-list {
+    width: 90%; /* Occupa quasi tutta la larghezza dello schermo */
+    max-width: 800px; /* Limita la larghezza massima */
+    text-align: center;
+    margin-top: 1rem; /* Distanza dall'header */
+  }
 }
 
 /* Stile per gli articoli principali */
@@ -266,6 +309,12 @@ ul {
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   position: relative;
   height: fit-content;
+}
+
+@media (max-width: 1024px) {
+  .related-content {
+    display: none;
+  }
 }
 
 
@@ -378,6 +427,65 @@ ul {
   border-radius: 8px;
   max-height: 400px;
   width: 100%;
+}
+
+
+// Fullscreen menu
+.fullscreen-menu {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.95);
+  color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  text-align: center;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease-in-out;
+}
+
+.fullscreen-menu.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* Stile per i link del menu */
+.fullscreen-menu ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.fullscreen-menu li {
+  margin: 15px 0;
+}
+
+.fullscreen-menu a {
+  font-size: 2rem;
+  text-decoration: none;
+  color: white;
+  font-weight: bold;
+}
+
+.fullscreen-menu a:hover {
+  text-decoration: underline;
+}
+
+/* Pulsante di chiusura */
+.close-menu {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: white;
 }
 
 

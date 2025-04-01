@@ -21,6 +21,27 @@
     text-align: center;
   }
 
+  @media (max-width: 1024px) {
+    .customTitle {
+      font-size: 1em;
+    }
+
+    .almost {
+      font-size: 0.5em;
+    }
+  }
+  
+  @media (max-width: 550px) {
+    .customTitle {
+      font-size: 0.7em;
+    }
+
+    .almost {
+      font-size: 0.35em;
+    }
+  }
+  
+
 /* Footer */
 footer {
   display: flex;

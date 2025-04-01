@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Search, Menu, User } from "lucide-react";
-import { FaSearch } from "react-icons/fa";
+import { X } from "lucide-react";
 import styles from "../StyledComponents.module.css";
 import "../App.css";
 import "../index.css";
@@ -10,7 +10,6 @@ const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 1024);
   const [searchQuery, setSearchQuery] = useState("");
-
   const [searchActive, setSearchActive] = useState(false);
 
   const handleSearchClick = () => {
@@ -66,23 +65,15 @@ const Header = () => {
       {isMobile ? (
         // Mobile View: Hamburger Menu
         <>
-          <button 
-            onClick={() => setIsMenuOpen(!isMenuOpen)} 
-            className="menu-icon"
-          >
-            <Menu size={30} />
+          <button onClick={() => setIsMenuOpen(true)} className="menu-icon">
+          <Menu size={isMobile ? 24 : 30} />
           </button>
 
           {isMenuOpen && (
-            <nav className="mobile-menu">
-              <input 
-                type="text" 
-                placeholder="Search"
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                onKeyDown={handleSearch} 
-                className="search-input"
-              />
+            <div className="fullscreen-menu">
+              <button className="close-menu" onClick={() => setIsMenuOpen(false)}>
+                <X size={40} />
+              </button>
               <ul>
                 <li><a href="https://www.nytimes.com/section/us" target="_blank" rel="noopener noreferrer">U.S.</a></li>
                 <li><a href="https://www.nytimes.com/section/world" target="_blank" rel="noopener noreferrer">World</a></li>
@@ -94,7 +85,7 @@ const Header = () => {
                 <li><a href="https://www.nytimes.com/spotlight/podcasts" target="_blank" rel="noopener noreferrer">Audio</a></li>
                 <li><a href="https://www.nytimes.com/games" target="_blank" rel="noopener noreferrer">Games</a></li>
               </ul>
-            </nav>
+            </div>
           )}
         </>
       ) : (
@@ -116,7 +107,7 @@ const Header = () => {
 
       {/* User Icon Placeholder for Future Login */}
       <div className="login" onClick={() => alert("Login functionality coming soon!")}>
-      <User size={30} />
+      <User size={isMobile ? 24 : 30} />
       </div>
     </header>
   );
