@@ -16,9 +16,9 @@ header {
 
 .search{
   grid-area: search;
-  display: grid;
+  display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
   padding: 1rem;
 }
 
@@ -34,7 +34,7 @@ header {
   grid-area: date;
   display: grid;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
   padding: 1rem;
 }
 
@@ -136,6 +136,9 @@ ul {
   width: 100%;
   height: auto;
   object-fit: cover;  /* Impedisce la distorsione dell'immagine */
+  min-height: 200px;  /* Imposta un'altezza minima per le immagini */
+  max-height: 600px;  /* Imposta un'altezza massima per le immagini */
+  min-width: 300px; /* Imposta la larghezza massima a 100% */
   border-radius: 8px;  /* Angoli arrotondati per le immagini */
   margin-bottom: 1rem;  /* Aggiunge uno spazio sotto l'immagine */
 }

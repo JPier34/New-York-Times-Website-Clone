@@ -1,11 +1,13 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { Search } from "lucide-react";
+import { useState } from "react";
 import styles from "../StyledComponents.module.css";
 import "../App.css";
 import "../index.css";
 
 const Header = () => {
+    const [isVisible, setIsVisible] = useState(false);
 
     // Current data
     const today = new Date().toLocaleDateString("en-US", {
@@ -18,6 +20,23 @@ const Header = () => {
   return (
     <header className={`${styles.headerBackground}`}>  
         
+        {/* Search Bar */}
+        <div className="search relative flex items-center">
+      <button 
+        onClick={() => setIsVisible(!isVisible)}
+        className="p-2 border border-gray-300 rounded-lg hover:bg-gray-200"
+      >
+        <Search className="w-5 h-5 text-gray-500" />
+      </button>
+      {isVisible && (
+        <input 
+          type="text" 
+          placeholder="Search" 
+          className="border border-gray-300 rounded-lg px-3 py-1 outline-none w-40 md:w-60 ml-2"
+        />
+      )}
+    </div>
+
         {/* Date */}
         <div className="date text-sm text-gray-600">{today}</div>
 
@@ -39,15 +58,7 @@ const Header = () => {
           </Link>
         </div>
 
-        {/* Search Bar */}
-        <div className="search border border-gray-300 rounded-lg px-3 py-1">
-          <input 
-            type="text" 
-            placeholder="Search" 
-            className="outline-none px-2 py-1 w-40 md:w-60"
-          />
-          <Search className="w-5 h-5 text-gray-500" />
-        </div>
+        
     </header>
   );
 };
