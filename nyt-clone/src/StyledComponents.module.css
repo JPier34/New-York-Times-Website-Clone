@@ -22,6 +22,11 @@
   }
 
   @media (max-width: 1024px) {
+
+    .headerBackground {
+      padding: 0rem;
+    }
+
     .customTitle {
       font-size: 1em;
     }
@@ -53,3 +58,12 @@ footer {
   font-size: 1rem;
   margin-top: auto; /* Sposta il footer in fondo alla pagina */
 }
+
+@media (max-width: 400px) {
+  footer {
+  padding: 0rem;
+}
+}
+
+
+

@@ -1,17 +1,18 @@
 /* Header */
 header {
   display: grid;
-  grid-template-columns: 1fr 1fr 4fr 1fr 1fr; /* Five columns: search, spacer, logo, spacer, login */
-  grid-template-rows: 1fr 2.5fr 1.5fr;
+  grid-template-columns: 0.7fr 0.5fr 4fr 0.5fr 0.7fr; /* Five columns: search, spacer, logo, spacer, login */
+  grid-template-rows: 1fr 1.5fr 1.5fr;
   grid-template-areas:
-    "search search . . login"
-    "date logo logo logo ."
-    "menu menu menu menu menu";
+    ". search . login ."
+    ". date logo logo ."
+    ". menu menu menu .";
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   white-space: nowrap;
   overflow: auto;
   text-align: left;
   position: relative; /* Ensures proper positioning of child elements */
+  overflow-x: hidden;
 
 .search{
   grid-area: search;
@@ -31,10 +32,17 @@ header {
 .date{
   grid-area: date;
   display: grid;
-  align-items: flex-start;
+  align-items: center;
   justify-content: flex-start;
   padding: 1rem;
 }
+
+@media (max-width: 1024px) {
+  .date {
+    display: none;
+  }
+}
+
 
 .logo {
   grid-area: logo;
@@ -170,13 +178,8 @@ header {
   }
 }
 
-
-
-
-
-
 h2 {
-  text-align: flex-center;
+  text-align: center;
   margin-bottom: 30px; /* Spazio tra il titolo e la lista */
 }
 
@@ -184,11 +187,10 @@ h2 {
 .news-layout {
   display: grid;
   grid-template-rows: auto;
-  grid-template-columns: 3fr 1fr; /* Top Stories (3/4) | Contenuti Correlati (1/4) */
+  grid-template-columns: 3fr 0.5fr 1fr; /* Top Stories (3/4) | Contenuti Correlati (1/4) */
   grid-template-areas:
-    "top-stories related-content"
-    "top-stories .";
-  max-width: 1200px; /* Larghezza massima del layout */
+    "top-stories . related-content"
+    "top-stories . .";
   margin: 0 auto; /* Centra il layout */
   padding: 2rem; /* Aggiunge spazio intorno al layout */
 }
@@ -199,12 +201,13 @@ h2 {
     flex-direction: column;
     align-items: center;
     width: 100%;
-    padding: 0;
+    margin-top: 20px;
+    padding: 0rem;
   }
 
   .article-list {
-    width: 90%; /* Occupa quasi tutta la larghezza dello schermo */
-    max-width: 800px; /* Limita la larghezza massima */
+    width: 85%; /* Occupa quasi tutta la larghezza dello schermo */
+    max-width: 100vhvh; /* Limita la larghezza massima */
     text-align: center;
     margin-top: 1rem; /* Distanza dall'header */
   }
@@ -227,6 +230,7 @@ ul {
   list-style: none;
   padding-left: 0; 
   margin-block-start: 0;
+  width: 100%;
 }
 
 /* Stile per ogni articolo */
@@ -240,6 +244,12 @@ ul {
   padding: 2.5rem;
   transition: transform 0.3s ease;  /* Aggiunge una transizione per l'effetto hover */
   margin-bottom: 2rem;  /* Aggiunge spazio tra gli articoli */
+}
+
+@media (max-width: 1024px) {
+  .article-item {
+    padding: 0rem;
+  }
 }
 
 /* Hover sugli articoli */
@@ -301,7 +311,6 @@ ul {
 .related-content {
   grid-area: related-content;
   background-color: grey;
-  padding: 1rem;
   color: white;
   max-width: 100%;
   width: 100%;
@@ -501,15 +510,21 @@ ul {
   gap: 2rem;
   max-width: fit-content;
   margin: 0 auto;
-  padding: 2rem;
-  
+  padding: 2rem; 
+}
+
+@media (max-width: 1024px) {
+  .article-detail-layout {
+    grid-template-columns: 1fr;
+    grid-template-areas: "article-detail";
+  }
 }
 
 .article-detail {
   display: grid;
   grid-area: article-detail;
-  grid-template-columns: 1fr minmax(auto, 800px) 1fr; /* Due colonne laterali per centratura */
-  grid-template-rows: auto auto auto auto 1fr auto; /* Flessibile */
+  grid-template-columns: 1fr minmax(auto, 800px) 1fr;
+  grid-template-rows: auto auto auto auto auto auto; 
   grid-template-areas:
     "title title title"
     "pub-date author author"
@@ -528,14 +543,35 @@ ul {
   justify-content: center;
 }
 
+@media (max-width: 550px) {
+  .article-detail {
+    grid-template-areas: "article-detail";
+    grid-template-columns: 1fr minmax(auto, 800px) 1fr;
+    grid-template-rows: auto auto auto auto auto auto; 
+    grid-template-areas:
+      "title title title"
+      "pub-date . ."
+      "image image image"
+      "lead lead lead"
+      ". . ."
+      "link . .";
+  }
+}
+
 /* Titolo */
 .article-title {
   grid-area: title;
-  font-size: 2.5rem;
+  font-size: 2.8rem;
   font-weight: bold;
   text-align: center;
   max-width: 800px;
   margin: 0 auto;
+}
+
+@media (max-width: 550px) {
+  .article-title {
+    font-size: 2rem;
+  }
 }
 
 /* Autore e Data */
@@ -545,7 +581,7 @@ ul {
   justify-content: flex-start;
   gap: 0.5rem;
   color: #555;
-  font-size: 1rem;
+  font-size: 1.2rem;
   font-style: italic;
 
 }
@@ -555,7 +591,15 @@ ul {
   display: flex;
   justify-content: flex-end;
   flex-wrap: wrap;
+  font-size: 1.2rem;
 }
+
+@media (max-width: 550px) {
+  .article-author {
+    display: none;
+  }
+}
+
 
 /* Immagine */
 .article-detail-image {
@@ -570,12 +614,19 @@ ul {
 /* Lead Paragraph */
 .lead-paragraph {
   grid-area: lead;
-  font-size: 1.3rem;
+  font-size: 1.5rem;
   font-weight: bold;
   text-align: center;
   max-width: 800px;
   margin: 0 auto;
 }
+
+@media (max-width: 550px) {
+  .lead-paragraph {
+    font-size: 1.2rem;
+  }
+}
+
 
 /* Link per leggere l'articolo completo */
 .article-link {

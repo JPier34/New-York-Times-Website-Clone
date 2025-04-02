@@ -37,6 +37,11 @@ const Header = () => {
   return (
     <header className={`${styles.headerBackground}`}>
 
+    <div className="date">
+      {new Date().toLocaleDateString("en-US", { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}
+    </div>
+
+
     <div className="search">
       <div className={`search-wrapper ${searchActive ? 'active' : ''}`}>
         <button onClick={handleSearchClick} className="search-icon">

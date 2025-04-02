@@ -7,7 +7,6 @@ const ArticleList = ({ articles, onFetchArticleContent }) => {
 
     return (
         <div className="article-list">
-            <div>
                 <ul>
                     {articles.map((article, index) => (
                         <li key={article.url || index} className="article-item">
@@ -30,7 +29,6 @@ const ArticleList = ({ articles, onFetchArticleContent }) => {
                         </li>
                     ))}
                 </ul>
-            </div>
         </div>
     );
 };

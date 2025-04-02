@@ -6,7 +6,7 @@ return (
   <>
   <hr style={{color: "white"}}></hr>
     <footer className="footer"> 
-      <p>&copy; {currentYear} || website offered by Jacopo Pierantozzi</p>
+      <p> {currentYear} || website offered by Jacopo Pierantozzi</p>
     </footer>
   </>
 );
