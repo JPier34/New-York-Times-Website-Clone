@@ -1,4 +1,3 @@
-// src/components/Auth.js
 import { useState } from "react";
 import { auth } from "../firebaseConfig";
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } from "firebase/auth";
@@ -10,7 +9,8 @@ const Auth = () => {
   const [error, setError] = useState("");
 
   // Registrazione
-  const handleRegister = async () => {
+  const handleRegister = async (e) => {
+    e.preventDefault();
     setError("");
     try {
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
@@ -21,7 +21,8 @@ const Auth = () => {
   };
 
   // Login
-  const handleLogin = async () => {
+  const handleLogin = async (e) => {
+    e.preventDefault();
     setError("");
     try {
       const userCredential = await signInWithEmailAndPassword(auth, email, password);
@@ -39,26 +40,46 @@ const Auth = () => {
 
   return (
     <div>
-      <h2>{user ? `Welcome, ${user.email}` : "Login or Register"}</h2>
+      <h2>{user ? `Welcome!` : ""}</h2>
 
       {!user && (
-        <>
-          <input
-            type="email"
-            placeholder="Email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          />
-          <input
-            type="password"
-            placeholder="Password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
-          <button onClick={handleLogin}>Login</button>
-          <button onClick={handleRegister}>Register</button>
+        <form>
+          <div>
+            <input
+              type="email"
+              placeholder="Email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+            />
+          </div>
+          <div>
+            <input
+              type="password"
+              placeholder="Password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+            />
+          </div>
+          <div>
+            <button
+              type="submit"
+              onClick={handleLogin}
+              disabled={!email || !password} // Disabilita il pulsante se i campi sono vuoti
+            >
+              Login
+            </button>
+            <button
+              type="button"
+              onClick={handleRegister}
+              disabled={!email || !password} // Disabilita il pulsante se i campi sono vuoti
+            >
+              Register
+            </button>
+          </div>
           {error && <p style={{ color: "red" }}>{error}</p>}
-        </>
+        </form>
       )}
 
       {user && <button onClick={handleLogout}>Logout</button>}

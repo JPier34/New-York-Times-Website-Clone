@@ -177,13 +177,94 @@ header {
     height: 24px;
   }
 }
+/* Popup */
+/* Popup Overlay (Sfondo trasparente) */
+.popup-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+/* Popup (finestra modale) */
+.login-popup {
+  background-color: #fff;
+  padding: 30px;
+  width: 80%;
+  max-width: 350px;
+  max-height: 80%;
+  overflow-y: auto; /* Aggiungi uno scroll se il contenuto è troppo lungo */
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  display: grid;
+  grid-template-rows: auto auto 1fr auto;
+  position: relative;
+  gap: 20px;
+}
+
+/* Contenuto del popup */
+.popup-content {
+  display: grid;
+  gap: 15px;
+}
+
+.popup-content h2, h3 {
+  color: black; /* Colore personalizzato per il testo h3 (puoi cambiarlo a tuo piacere) */
+  font-size: 24px;
+  margin-bottom: 15px;
+  text-align: flex-left; /* Centra il titolo */
+}
+
+.popup-content input,
+.popup-content button {
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.popup-content input {
+  width: 100%;
+}
+
+/* Chiusura del popup */
+.popup-content button {
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.popup-content button:hover {
+  background-color: #0056b3;
+}
+
+.popup-content button.close {
+  background-color: #f44336;
+  color: white;
+  width: 100%;
+  padding: 12px;
+}
+
+.popup-content button.close:hover {
+  background-color: #d32f2f;
+}
+
+
+/* Regole generali */
 
 h2 {
   text-align: center;
   margin-bottom: 30px; /* Spazio tra il titolo e la lista */
 }
 
-/* Regole generali */
 .news-layout {
   display: grid;
   grid-template-rows: auto;
