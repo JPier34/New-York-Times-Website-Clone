@@ -77,28 +77,30 @@ const Header = () => {
       {isMobile ? (
         <>
           {/* Mobile View: Hamburger Menu */}
-          <button onClick={() => setIsMenuOpen(true)} className="menu-icon">
+          <button onClick={() => setIsMenuOpen(true)} className="hamburger-menu">
             <Menu size={isMobile ? 24 : 30} />
           </button>
 
           {isMenuOpen && (
-            <div className="fullscreen-menu">
-              <button className="close-menu" onClick={() => setIsMenuOpen(false)}>
-                <X size={40} />
-              </button>
-              <ul>
-                <li><a href="https://www.nytimes.com/section/us" target="_blank" rel="noopener noreferrer">U.S.</a></li>
-                <li><a href="https://www.nytimes.com/section/world" target="_blank" rel="noopener noreferrer">World</a></li>
-                <li><a href="https://www.nytimes.com/section/business" target="_blank" rel="noopener noreferrer">Business</a></li>
-                <li><a href="https://www.nytimes.com/section/arts" target="_blank" rel="noopener noreferrer">Arts</a></li>
-                <li><a href="https://www.nytimes.com/section/style" target="_blank" rel="noopener noreferrer">Lifestyle</a></li>
-                <li><a href="https://www.nytimes.com/section/opinion" target="_blank" rel="noopener noreferrer">Opinion</a></li>
-                <li><a href="https://www.nytimes.com/section/sports" target="_blank" rel="noopener noreferrer">Sports</a></li>
-                <li><a href="https://www.nytimes.com/spotlight/podcasts" target="_blank" rel="noopener noreferrer">Audio</a></li>
-                <li><a href="https://www.nytimes.com/games" target="_blank" rel="noopener noreferrer">Games</a></li>
-              </ul>
-            </div>
-          )}
+  <div className={`menu${isMenuOpen ? " active" : ""}`}>
+    <button className="close-menu" onClick={() => setIsMenuOpen(false)}>
+      <X size={40} />
+    </button>
+    <ul>
+      <li><a href="https://www.nytimes.com/section/us" target="_blank" rel="noopener noreferrer">U.S.</a></li>
+      <li><a href="https://www.nytimes.com/section/world" target="_blank" rel="noopener noreferrer">World</a></li>
+      <li><a href="https://www.nytimes.com/section/business" target="_blank" rel="noopener noreferrer">Business</a></li>
+      <li><a href="https://www.nytimes.com/section/arts" target="_blank" rel="noopener noreferrer">Arts</a></li>
+      <li><a href="https://www.nytimes.com/section/style" target="_blank" rel="noopener noreferrer">Lifestyle</a></li>
+      <li><a href="https://www.nytimes.com/section/opinion" target="_blank" rel="noopener noreferrer">Opinion</a></li>
+      <li><a href="https://www.nytimes.com/section/sports" target="_blank" rel="noopener noreferrer">Sports</a></li>
+      <li><a href="https://www.nytimes.com/spotlight/podcasts" target="_blank" rel="noopener noreferrer">Audio</a></li>
+      <li><a href="https://www.nytimes.com/games" target="_blank" rel="noopener noreferrer">Games</a></li>
+    </ul>
+  </div>
+)}
+
+
         </>
       ) : (
         <nav className="menu">
@@ -121,14 +123,16 @@ const Header = () => {
         <User size={isMobile ? 24 : 30} />
       </div>
 
-      {/* Popup di login */}
+      {/* Popup Overlay */}
       {showPopup && (
         <div className="popup-overlay" onClick={handleClosePopup}>
-          <div className="login-popup" onClick={(e) => e.stopPropagation()}> {/* Impedisce la chiusura se clicchiamo dentro */}
+          <div className="login-popup">
+            <button className="close-popup" onClick={handleClosePopup}>
+              &#x2715; {/* Unicode for the X */}
+            </button>
             <div className="popup-content">
               <h3>Login</h3>
-              <Auth />
-              <button className="close" onClick={handleClosePopup}>Close</button>
+              <Auth setShowPopup={setShowPopup} />
             </div>
           </div>
         </div>
