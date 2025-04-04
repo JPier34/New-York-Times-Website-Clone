@@ -1,9 +1,9 @@
-import React from 'react';  // Importa React
-import ReactDOM from 'react-dom/client';  // Importa ReactDOM per creare la root
-import App from './App';  // Importa il componente principale
-import { AppProvider } from './context/AppContext';  // Importa il provider del contesto
+import React from 'react';  // Import React
+import ReactDOM from 'react-dom/client';  // Import ReactDOM to create the root
+import App from './App';  // Import the main App component
+import { AppProvider } from './context/AppContext';  // Import the AppProvider for context management
 
-// Crea la root per React 18 e renderizza l'app
+// Create a root element using ReactDOM
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
