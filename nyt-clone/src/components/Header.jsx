@@ -5,14 +5,15 @@ import { X } from "lucide-react";
 import styles from "../StyledComponents.module.css";
 import "../App.css";
 import "../index.css";
-import Auth from "../components/Auth";  // Importa il componente Auth
+import Auth from "../components/Auth";  
+import classNames from "classnames"; 
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 1024);
   const [searchQuery, setSearchQuery] = useState("");
   const [searchActive, setSearchActive] = useState(false);
-  const [showPopup, setShowPopup] = useState(false); // Stato per controllare la visibilità del popup
+  const [showPopup, setShowPopup] = useState(false); 
 
   const handleSearchClick = () => {
     setSearchActive(!searchActive);
@@ -20,12 +21,20 @@ const Header = () => {
 
   // Gestiamo il resize della finestra
   useEffect(() => {
+    let resizeTimeout;
+
     const handleResize = () => {
-      setIsMobile(window.innerWidth <= 1024);
+      clearTimeout(resizeTimeout);
+      resizeTimeout = setTimeout(() => {
+        setIsMobile(window.innerWidth <= 1024);
+      }, 200); // Adjust debounce delay as needed
     };
 
     window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
+    return () => {
+      clearTimeout(resizeTimeout);
+      window.removeEventListener("resize", handleResize);
+    };
   }, []);
 
   // Gestiamo la ricerca
@@ -54,38 +63,53 @@ const Header = () => {
           <button onClick={handleSearchClick} className="search-icon">
             <Search size={20} />
           </button>
-          {searchActive && (
-            <input
-              placeholder="Search..."
-              className="search-input"
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              onKeyDown={handleSearch}
-            />
-          )}
+            {searchActive && (
+              <input
+                placeholder="Search..."
+                className="search-input"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                onKeyDown={handleSearch}
+              />
+            )}
+          </div>
         </div>
-      </div>
 
       {/* Logo */}
-      <div className="logo">
-        <Link to="/">
-          <span className={styles.almost}>(almost) </span>
-          <span className={styles.customTitle}>The New York Times</span>
-        </Link>
-      </div>
+<div className="logo">
+  <Link to="/">
+    <span className={styles.almost}>(almost) </span>
+    <span className={styles.customTitle}>The New York Times</span>
+  </Link>
+</div>
 
-      {isMobile ? (
-        <>
-          {/* Mobile View: Hamburger Menu */}
-          <button onClick={() => setIsMenuOpen(true)} className="hamburger-menu">
-            <Menu size={isMobile ? 24 : 30} />
-          </button>
+{isMobile ? (
+  <>
+    {/* Hamburger icon */}
+<button onClick={() => setIsMenuOpen((prev) => !prev)} className="hamburger-menu">
+  <Menu size={isMobile ? 24 : 30} />
+</button>
 
-          {isMenuOpen && (
-  <div className={`menu${isMenuOpen ? " active" : ""}`}>
-    <button className="close-menu" onClick={() => setIsMenuOpen(false)}>
-      <X size={40} />
-    </button>
+{/* Mobile menu */}
+<div className={classNames("menu", { active: isMenuOpen })}>
+  <button className="close-menu" onClick={() => setIsMenuOpen(false)}>
+    <X size={40} />
+  </button>
+      <ul>
+        <li><a href="https://www.nytimes.com/section/us" target="_blank" rel="noopener noreferrer">U.S.</a></li>
+        <li><a href="https://www.nytimes.com/section/world" target="_blank" rel="noopener noreferrer">World</a></li>
+        <li><a href="https://www.nytimes.com/section/business" target="_blank" rel="noopener noreferrer">Business</a></li>
+        <li><a href="https://www.nytimes.com/section/arts" target="_blank" rel="noopener noreferrer">Arts</a></li>
+        <li><a href="https://www.nytimes.com/section/style" target="_blank" rel="noopener noreferrer">Lifestyle</a></li>
+        <li><a href="https://www.nytimes.com/section/opinion" target="_blank" rel="noopener noreferrer">Opinion</a></li>
+        <li><a href="https://www.nytimes.com/section/sports" target="_blank" rel="noopener noreferrer">Sports</a></li>
+        <li><a href="https://www.nytimes.com/spotlight/podcasts" target="_blank" rel="noopener noreferrer">Audio</a></li>
+        <li><a href="https://www.nytimes.com/games" target="_blank" rel="noopener noreferrer">Games</a></li>
+      </ul>
+    </div>
+  </>
+) : (
+  <nav className="menu">
     <ul>
       <li><a href="https://www.nytimes.com/section/us" target="_blank" rel="noopener noreferrer">U.S.</a></li>
       <li><a href="https://www.nytimes.com/section/world" target="_blank" rel="noopener noreferrer">World</a></li>
@@ -97,26 +121,9 @@ const Header = () => {
       <li><a href="https://www.nytimes.com/spotlight/podcasts" target="_blank" rel="noopener noreferrer">Audio</a></li>
       <li><a href="https://www.nytimes.com/games" target="_blank" rel="noopener noreferrer">Games</a></li>
     </ul>
-  </div>
+  </nav>
 )}
 
-
-        </>
-      ) : (
-        <nav className="menu">
-          <ul>
-            <li><a href="https://www.nytimes.com/section/us" target="_blank" rel="noopener noreferrer">U.S.</a></li>
-            <li><a href="https://www.nytimes.com/section/world" target="_blank" rel="noopener noreferrer">World</a></li>
-            <li><a href="https://www.nytimes.com/section/business" target="_blank" rel="noopener noreferrer">Business</a></li>
-            <li><a href="https://www.nytimes.com/section/arts" target="_blank" rel="noopener noreferrer">Arts</a></li>
-            <li><a href="https://www.nytimes.com/section/style" target="_blank" rel="noopener noreferrer">Lifestyle</a></li>
-            <li><a href="https://www.nytimes.com/section/opinion" target="_blank" rel="noopener noreferrer">Opinion</a></li>
-            <li><a href="https://www.nytimes.com/section/sports" target="_blank" rel="noopener noreferrer">Sports</a></li>
-            <li><a href="https://www.nytimes.com/spotlight/podcasts" target="_blank" rel="noopener noreferrer">Audio</a></li>
-            <li><a href="https://www.nytimes.com/games" target="_blank" rel="noopener noreferrer">Games</a></li>
-          </ul>
-        </nav>
-      )}
 
       {/* Icona dell'utente per il popup */}
       <div className="login" onClick={() => setShowPopup(true)}>

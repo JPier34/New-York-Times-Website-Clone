@@ -11,7 +11,7 @@ header {
   white-space: nowrap;
   overflow: auto;
   text-align: left;
-  position: relative; /* Ensures proper positioning of child elements */
+  position: relative;
   overflow-x: hidden;
 
 .search{
@@ -121,10 +121,8 @@ header {
 
   /* Menu inizialmente nascosto */
   .menu {
-    display: none;  /* Menu nascosto di default */
     flex-direction: column;
-    align-items: center;
-    position: absolute;  /* Cambiato da fixed a absolute per posizionarlo sotto l'header */
+    position: fixed;
     top: 100%;  /* Posiziona il menu direttamente sotto l'header */
     left: 0;
     width: 100%;
@@ -133,12 +131,20 @@ header {
     z-index: 1000;
     justify-content: center;
     padding-top: 1rem;
-    transition: transform 0.3s ease-in-out; /* Aggiungi transizione per un effetto morbido */
+    visibility: hidden;
+    opacity: 0;
+    pointer-events: none; 
+    transition: transform 0.3s ease-in-out, visibility 0.3s ease;
+    transform: translateY(-10%); 
   }
 
-  /* Quando il menu è attivo, lo mostriamo */
   .menu.active {
-    display: flex; /* Rendi il menu visibile quando attivo */
+    display: flex; 
+    position: sticky;
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto; 
+    transform: translateY(0);
   }
 
   .menu ul {
@@ -340,15 +346,16 @@ ul {
 
 /* Stile per ogni articolo */
 .article-item {
+  display: inline-grid;
   background-color: #f9f9f9;
   border-radius: 8px;
   overflow: hidden;
-  width: 100%; /* Imposta la larghezza a 100% in dispositivi piccoli */
-  max-width: fit-content; /* Imposta una larghezza massima per ogni articolo */
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);  /* Aggiunge ombra per dare profondità */
+  width: 100%; 
+  max-width: -webkit-fill-available; 
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);  
   padding: 2.5rem;
-  transition: transform 0.3s ease;  /* Aggiunge una transizione per l'effetto hover */
-  margin-bottom: 2rem;  /* Aggiunge spazio tra gli articoli */
+  transition: transform 0.3s ease;  
+  margin-bottom: 2rem;  
 }
 
 @media (max-width: 1024px) {
@@ -374,7 +381,7 @@ ul {
 .article-image {
   width: 100%;
   height: auto;
-  object-fit: cover;  /* Impedisce la distorsione dell'immagine */
+  object-fit: fill;  /* Impedisce la distorsione dell'immagine */
   min-height: 200px;  /* Imposta un'altezza minima per le immagini */
   max-height: 600px;  /* Imposta un'altezza massima per le immagini */
   min-width: 300px; /* Imposta la larghezza massima a 100% */
