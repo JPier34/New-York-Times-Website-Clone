@@ -19,7 +19,7 @@ const Header = () => {
     setSearchActive(!searchActive);
   };
 
-  // Gestiamo il resize della finestra
+  // Window resize
   useEffect(() => {
     let resizeTimeout;
 
@@ -27,7 +27,7 @@ const Header = () => {
       clearTimeout(resizeTimeout);
       resizeTimeout = setTimeout(() => {
         setIsMobile(window.innerWidth <= 1024);
-      }, 200); // Adjust debounce delay as needed
+      }, 200); 
     };
 
     window.addEventListener("resize", handleResize);
@@ -41,13 +41,13 @@ const Header = () => {
   const handleSearch = (e) => {
     if (e.key === "Enter" && searchQuery.trim() !== "") {
       const nyTimesSearchUrl = `https://www.nytimes.com/search?query=${encodeURIComponent(searchQuery)}`;
-      window.open(nyTimesSearchUrl, "_blank"); // Apriamo la ricerca in una nuova scheda
+      window.open(nyTimesSearchUrl, "_blank"); // open in a new tab
     }
   };
 
-  // Funzione per chiudere il popup solo se si clicca sull'overlay (sfondo)
+  // popup close
   const handleClosePopup = (e) => {
-    if (e.target === e.currentTarget) {  // Verifica se si è cliccato sull'overlay
+    if (e.target === e.currentTarget) {  // Verify if the click is outside the popup
       setShowPopup(false);
     }
   };
@@ -142,7 +142,7 @@ const Header = () => {
 )}
 
 
-      {/* Icona dell'utente per il popup */}
+      {/* Popup icon */}
       <div className="login" onClick={() => setShowPopup(true)}>
         <User size={isMobile ? 24 : 30} />
       </div>

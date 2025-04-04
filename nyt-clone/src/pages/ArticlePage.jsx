@@ -9,7 +9,7 @@ import "../App.css";
 import "../index.css";
 
 const ArticlePage = () => {
-  const { articleId } = useParams(); // Ora contiene il web_url codificato
+  const { articleId } = useParams(); // Now capturing the full URL as articleId
   const [article, setArticle] = useState(null);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -19,12 +19,12 @@ const ArticlePage = () => {
     const fetchArticle = async () => {
       setLoading(true);
       try {
-        // Usa l'URL completo dell'articolo per fare la ricerca
+        // Using the full URL to fetch the article
         const response = await axios.get(
           `https://api.nytimes.com/svc/search/v2/articlesearch.json?fq=web_url:"${decodeURIComponent(articleId)}"&api-key=${apiKey}`
         );
     
-        const articleData = response.data?.response?.docs[0]; // Ottieni il primo risultato
+        const articleData = response.data?.response?.docs[0]; // Object destructuring to get the first article
         if (articleData) {
           setArticle(articleData);
         } else {
@@ -48,9 +48,9 @@ const ArticlePage = () => {
     <>
       <Header />
       <div className="article-detail-layout">
-        {/* Articolo */}
+        {/* Article */}
         <ArticleDetail article={article} />
-        {/* RelatedContent sulla destra */}
+        {/* RelatedContent on the right */}
         <RelatedContent className="related-detail-content" />
       </div>
       <Footer className="footer"/>

@@ -56,7 +56,7 @@ header {
   font-size: 2rem;
   font-weight: bold;
   color: black;
-  text-decoration: none; /* Rimuove la sottolineatura */
+  text-decoration: none; 
 }
 
 .menu {
@@ -68,11 +68,11 @@ header {
 }
 
 .menu ul {
-  display: flex;  /* Rende gli <li> orizzontali */
-  justify-content: center; /* Centra gli elementi */
-  align-items: center; /* Allinea gli elementi al centro */
-  gap: 12px;  /* Spazio tra gli elementi */
-  list-style: none; /* Rimuove i pallini */
+  display: flex; 
+  justify-content: center; 
+  align-items: center; 
+  gap: 12px;  
+  list-style: none; 
   padding: 0;
   margin: 0;
 }
@@ -85,12 +85,12 @@ header {
 }
 
  .menu li:hover {
-  text-decoration: underline; /* Cambia colore al passaggio del mouse */
+  text-decoration: underline; 
  } 
 }
 
 
-/* Stili per il nav*/
+/* Nav style */
 .nav {
   display: flex;
   justify-content: center;
@@ -99,7 +99,7 @@ header {
 }
 
 
-/* Stili per il logo in StyledComponents */
+/* StyledComponents for the logo */
 
 /* Responsive */
 
@@ -161,7 +161,6 @@ header {
     text-decoration: underline;
   }
 
-  /* Nascondi la barra di ricerca su mobile */
   .search-wrapper {
     display: none;
     width: 100%;
@@ -169,7 +168,7 @@ header {
     justify-content: center;
     position: sticky;
     top: 0;
-    z-index: 1001; /* sopra il menu hamburger */
+    z-index: 1001; 
   }
 
   .menu.active .search-wrapper {
@@ -197,11 +196,11 @@ header {
   }
 
   .menu li a {
-    font-size: 1.2rem; /* Riduce la dimensione del testo */
+    font-size: 1.2rem; 
   }
 
   .menu ul {
-    gap: 1rem; /* Riduce lo spazio tra gli elementi */
+    gap: 1rem; 
   }
 
   .hamburger-menu {
@@ -209,14 +208,14 @@ header {
   }
 
   .search-icon, .login svg {
-    width: 24px; /* Riduce le icone */
+    width: 24px;
     height: 24px;
   }
 }
 
 
 /* login/logout Popup */
-/* Popup Overlay (Sfondo trasparente) */
+/* Popup Overlay (trasparent) */
 .popup-overlay {
   position: fixed;
   top: 0;
@@ -230,13 +229,13 @@ header {
   z-index: 1000;
 }
 
-/* Popup (finestra modale) */
+/* Popup (modal) */
 .login-popup {
   background-color: #fff;
   padding: 30px;
   width: 90%;
   max-height: 80%;
-  overflow-y: auto; /* Aggiungi uno scroll se il contenuto è troppo lungo */
+  overflow-y: auto; /* Add a scroll if content overflows */
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   display: grid;
@@ -245,7 +244,7 @@ header {
   gap: 20px;
 }
 
-/* Chiusura con X Nera */
+/* X close */ 
 .close-popup {
   position: absolute;
   top: 10px;
@@ -258,17 +257,17 @@ header {
   transition: color 0.3s;
 }
 
-/* Contenuto del popup */
+/* Popup content */
 .popup-content {
   display: grid;
   gap: 15px;
 }
 
 .popup-content h2, h3 {
-  color: black; /* Colore personalizzato per il testo h3 (puoi cambiarlo a tuo piacere) */
+  color: black; 
   font-size: 24px;
   margin-bottom: 15px;
-  text-align: flex-left; /* Centra il titolo */
+  text-align: flex-left; 
 }
 
 .popup-content input,
@@ -283,7 +282,6 @@ header {
   width: 100%;
 }
 
-/* Chiusura del popup */
 .popup-content button {
   background-color: #007bff;
   color: #fff;
@@ -308,22 +306,22 @@ header {
 }
 
 
-/* Regole generali */
+/* General rules */
 
 h2 {
   text-align: center;
-  margin-bottom: 30px; /* Spazio tra il titolo e la lista */
+  margin-bottom: 30px; 
 }
 
 .news-layout {
   display: grid;
   grid-template-rows: auto;
-  grid-template-columns: 3fr 0.5fr 1fr; /* Top Stories (3/4) | Contenuti Correlati (1/4) */
+  grid-template-columns: 3fr 0.5fr 1fr; 
   grid-template-areas:
     "top-stories . related-content"
     "top-stories . .";
-  margin: 0 auto; /* Centra il layout */
-  padding: 2rem; /* Aggiunge spazio intorno al layout */
+  margin: 0 auto; 
+  padding: 2rem; 
 }
 
 @media (max-width: 1024px) {
@@ -337,23 +335,23 @@ h2 {
   }
 
   .article-list {
-    width: 85%; /* Occupa quasi tutta la larghezza dello schermo */
-    max-width: 100vhvh; /* Limita la larghezza massima */
+    width: 85%; 
+    max-width: 100vhvh;
     text-align: center;
-    margin-top: 1rem; /* Distanza dall'header */
+    margin-top: 1rem; 
   }
 }
 
-/* Stile per gli articoli principali */
-/* Stile per la lista degli articoli */
+/* Main articles */ 
+/* Article list */ 
 .article-list {
-  grid-area: top-stories; /* Assegna l'area della griglia */
-  display: grid;  /* Utilizza un layout flessibile */
-  list-style: none;  /* Rimuove i punti dalla lista */
-  padding: 0;  /* Rimuove il padding predefinito */
-  margin: 0;  /* Rimuove il margine predefinito */
-  justify-content: center; /* Centra gli articoli */
-  align-items: center;  /* Allinea gli articoli al centro */
+  grid-area: top-stories; 
+  display: grid; 
+  list-style: none;  
+  padding: 0;  
+  margin: 0;  
+  justify-content: center;
+  align-items: center; 
 }
 
 ul {
@@ -364,7 +362,7 @@ ul {
   width: 100%;
 }
 
-/* Stile per ogni articolo */
+/* Single article */
 .article-item {
   display: inline-grid;
   background-color: #f9f9f9;
@@ -384,32 +382,31 @@ ul {
   }
 }
 
-/* Hover sugli articoli */
+/* Hover */
 .article-item:hover {
-  transform: translateY(-5px);  /* Sposta l'articolo verso l'alto al passaggio del mouse */
+  transform: translateY(-5px);  
 }
 
-/* Link agli articoli */
+/* Articles link */
 .article-link {
   text-decoration: none;
-  color: inherit;  /* Mantiene il colore ereditato dal testo */
-  display: block;  /* Rende l'intero articolo cliccabile */
-  text-align: center;  /* Allinea il testo al centro */
+  color: inherit;  
+  display: block;  
+  text-align: center;  
 }
 
-/* Immagini degli articoli */
+/* Articles images */
 .article-image {
   width: 100%;
   height: auto;
-  object-fit: fill;  /* Impedisce la distorsione dell'immagine */
-  min-height: 200px;  /* Imposta un'altezza minima per le immagini */
-  max-height: 600px;  /* Imposta un'altezza massima per le immagini */
-  min-width: 300px; /* Imposta la larghezza massima a 100% */
-  border-radius: 8px;  /* Angoli arrotondati per le immagini */
-  margin-bottom: 1rem;  /* Aggiunge uno spazio sotto l'immagine */
+  object-fit: fill;
+  min-height: 200px;
+  max-height: 600px; 
+  min-width: 300px; 
+  border-radius: 8px; 
+  margin-bottom: 1rem;
 }
 
-/* Testo del titolo dell'articolo */
 .article-item h3 {
   font-size: 1.25rem;
   color: black;
@@ -417,7 +414,7 @@ ul {
   font-weight: bold;
 }
 
-/* Descrizione dell'articolo */
+/* Article description */
 .article-item p {
   color: #666;
   font-size: 0.9rem;
@@ -425,7 +422,7 @@ ul {
   margin-top: 0.5rem;
 }
 
-/* Stili per related menu */
+/* Related menu */
 .menu-button {
   position: absolute;
   top: 20px;
@@ -439,7 +436,7 @@ ul {
   z-index: 1000;
 }
 
-/* Posizione del contenitore related-content */
+/* Positioning */
 .related-content {
   grid-area: related-content;
   background-color: grey;
@@ -486,7 +483,7 @@ ul {
 
 .dropdown-content {
   overflow: hidden;
-  width: 100%; /* Occupa tutta la larghezza del contenitore */
+  width: 100%;
   padding: 0.5rem;
   border-radius: 5px;
   margin-top: 0.5rem;
@@ -494,7 +491,7 @@ ul {
 
 .menu-item.active + .dropdown-content {
   display: block;
-  max-height: 500px; /* Imposta un'altezza massima per il dropdown */
+  max-height: 500px; 
 }
 
 .dropdown-menu {
@@ -596,7 +593,7 @@ ul {
   visibility: visible;
 }
 
-/* Stile per i link del menu */
+/* Menu items */
 .fullscreen-menu ul {
   list-style: none;
   padding: 0;
@@ -678,7 +675,7 @@ ul {
   }
 }
 
-/* Titolo */
+/* Title */
 .article-title {
   grid-area: title;
   font-size: 2.8rem;
@@ -694,7 +691,7 @@ ul {
   }
 }
 
-/* Autore e Data */
+/* Author and Date */
 .article-pub-date {
   grid-area: pub-date;
   display: flex;
@@ -721,7 +718,7 @@ ul {
 }
 
 
-/* Immagine */
+/* Image */
 .article-detail-image {
   grid-area: image;
   width: 100%;
@@ -748,7 +745,7 @@ ul {
 }
 
 
-/* Link per leggere l'articolo completo */
+/* Link to the article */
 .article-link {
   grid-area: link;
   display: flex;
@@ -762,7 +759,7 @@ ul {
   width: 100%;
 }
 
-/* Pulsante per leggere l'articolo completo */
+/* Button */
 .read-full-article {
   background-color: #007bff;
   color: white;
@@ -775,7 +772,7 @@ ul {
   max-width: 100%; /* Larghezza massima del pulsante */
 }
 
-/* Hover per il link */
+/* Hover property */
 .read-full-article:hover {
   background-color: #0056b3;
 }

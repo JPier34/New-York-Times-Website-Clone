@@ -33,9 +33,9 @@ const HomePage = () => {
   }, [setArticles, setLoading, setError]);
 
   const fetchArticleContent = (url) => {
-    const encodedUrl = encodeURIComponent(url); // Codifica l'URL per usarlo nella URL
-    navigate(`/article/${encodedUrl}`); // Passa il web_url come parametro
-  };
+    const encodedUrl = encodeURIComponent(url);
+    navigate(`/article/${encodedUrl}`); 
+  }
   
   return (
     <>

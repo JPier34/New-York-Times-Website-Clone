@@ -5,7 +5,7 @@ import '../App.css';
 const ArticleDetail = ({ article }) => {
 
   useEffect(() => {
-    console.log("Article Data:", article); // Log della risposta API per ispezionare i dati
+    console.log("Article Data:", article); // Log the article data to the console
   }, [article]);
 
   if (!article) {
@@ -17,7 +17,6 @@ const ArticleDetail = ({ article }) => {
       window.open(article.web_url, '_blank');
     } else {
       console.error('Article URL not available');
-      // Puoi anche mostrare un messaggio visivo di errore per l'utente
     }
   };
 
