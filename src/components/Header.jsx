@@ -37,7 +37,7 @@ const Header = () => {
     };
   }, []);
 
-  // Gestiamo la ricerca
+  // Research function
   const handleSearch = (e) => {
     if (e.key === "Enter" && searchQuery.trim() !== "") {
       const nyTimesSearchUrl = `https://www.nytimes.com/search?query=${encodeURIComponent(searchQuery)}`;
