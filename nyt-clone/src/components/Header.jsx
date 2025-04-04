@@ -95,6 +95,23 @@ const Header = () => {
   <button className="close-menu" onClick={() => setIsMenuOpen(false)}>
     <X size={40} />
   </button>
+
+  {/* Search Bar */}
+  <div className={`search-wrapper ${searchActive ? 'active' : ''}`}>
+        <button onClick={handleSearchClick} className="search-icon">
+          <Search size={20} />
+        </button>
+        {searchActive && (
+          <input
+            placeholder="Search..."
+            className="search-input"
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            onKeyDown={handleSearch}
+          />
+        )}
+      </div>
+
       <ul>
         <li><a href="https://www.nytimes.com/section/us" target="_blank" rel="noopener noreferrer">U.S.</a></li>
         <li><a href="https://www.nytimes.com/section/world" target="_blank" rel="noopener noreferrer">World</a></li>

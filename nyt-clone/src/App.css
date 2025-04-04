@@ -119,11 +119,10 @@ header {
     padding: 1rem;
   }
 
-  /* Menu inizialmente nascosto */
   .menu {
     flex-direction: column;
     position: fixed;
-    top: 100%;  /* Posiziona il menu direttamente sotto l'header */
+    top: 100%;
     left: 0;
     width: 100%;
     background: rgba(0, 0, 0, 0.9);
@@ -165,6 +164,27 @@ header {
   /* Nascondi la barra di ricerca su mobile */
   .search-wrapper {
     display: none;
+    width: 100%;
+    padding: 1rem;
+    justify-content: center;
+    position: sticky;
+    top: 0;
+    z-index: 1001; /* sopra il menu hamburger */
+  }
+
+  .menu.active .search-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .search-input {
+    width: 100%;
+    max-width: 500px;
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 0.5rem;
+    font-size: 1rem;
   }
 }
 
@@ -597,18 +617,6 @@ ul {
 .fullscreen-menu a:hover {
   text-decoration: underline;
 }
-
-/* Pulsante di chiusura */
-.close-menu {
-  position: absolute;
-  top: 20px;
-  right: 20px;
-  background: none;
-  border: none;
-  cursor: pointer;
-  color: white;
-}
-
 
 /* ArticleDetail */
 
