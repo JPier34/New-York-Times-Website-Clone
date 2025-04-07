@@ -1,3 +1,29 @@
+# 📰 New York Times Website Clone
+
+A responsive and modern clone of the New York Times website, developed with React, Redux, and Vite.  
+The project features dynamic routing, simulated API calls, global state management, and a UI inspired by the renowned newspaper.
+
+---
+
+## 🚀 Tech Stack
+
+- ⚛️ React 18
+- 🔥 Vite (super fast dev server + build tool)
+- 🧭 React Router DOM
+- 🧰 Redux Toolkit + React Redux
+- 🌐 Axios
+- ✅ ESLint
+- 🍞 React Toastify
+
+---
+
+## 📦 Installazione
+
+1. Clona il progetto:
+   ```bash
+   git clone https://github.com/jpier34/new-york-times-website-clone.git
+   cd new-york-times-website-clone
+
 # React + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
