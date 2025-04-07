@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NY Times Clone</title>
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="A New York Times website clone based on react.">
+    
+    <!-- Open Graph social -->
+    <meta property="og:title" content="New York Times Clone">
+    <meta property="og:description" content="A New York Times website clone based on React, using APIs and Vite build tool.">
+    <meta property="og:site_name" content="New York Times Clone">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="./src/assets/og/og.image-new-york-times-clone.png">  
+    <meta property="og:url" content="https://jpier34.github.io/new-york-times-website-clone/">
+    <meta property="og:locale" content="en_IT">
+    <meta property="og:locale:alternate" content="en_US">
+    <meta property="og:locale:alternate" content="it_IT">
+    <meta property="og:locale:alternate" content="es_ES">
+    <meta property="og:locale:alternate" content="fr_FR">
+    <meta property="og:locale:alternate" content="de_DE">
+    <meta property="og:locale:alternate" content="pt_PT">
+    <meta property="og:locale:alternate" content="ru_RU">
+    <meta property="og:locale:alternate" content="zh_CN">
+    <meta property="og:locale:alternate" content="ja_JP">
+    <meta property="og:locale:alternate" content="ko_KR"> 
+    
+    <!-- Google Fonts -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Georgia:wght@400;700&display=swap">
+
+    <!-- CSS -->
+    
+
+    <!-- Favicon -->
+    <link rel="apple-touch-icon" sizes="180x180" href="/new-york-times-website-clone/assets/apple-touch-icon-45fe5940.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAp9JREFUWEftlj9IcmEUxh8ziDKlHJQGSRSLAiUwGyNLF1EECXSopQKhVseWUNemQoSKoIKwraEwJGhqUIMEK8WgQYigQQtSkPDjvNDtZtcoCr/lHrhwue+/3/uc5xyV1Ov1Ov5jSEQAUQFRAVEBUqBcLuPh4QH9/f3o6Oj40JZeX19xe3uLvr4+yOVy9t7d3Q21Wv2pfd3f36NSqbDxUqn0ZXtTqVTo6ekBa0RbW1uYn5/H8vIygsHgh4W0UW9vLw4ODjA9PY2ZmRmcn58jn89DKpVyc2u1GvR6PRwOB9rb27G+vv4lAI0vLi6+AywtLbEF19fX0Gq13OJGgKurKxiNRuzt7cHn83Hzdnd3MTc3x8CUSiVeXl64scnJSQwPD2NtbY37plAo0NXV9Q4QDodhMBiYzHTbt2gEoO9erxeFQgGpVAoSiQT0czIyMgKLxYKNjY1PNzeZTKCHIBuDS0EgEMDJyQnGxsZwenqKiYkJNlcIIJPJsANpvs1mQzweh9PpxM3NDUtDY3wLwO/3g/JIstJG6XSa5VgIgA7weDyoVqs4OjrC1NQUNBoNtre3BfP+LQAyITm+WCxiaGgIq6urIKhmABcXF0zyzc1NLCwsgLwxMDDwe4C2tjasrKwwF5OhKPhVwD/B5XLh+PiYqSaU37e5P1KAAMjB5FqSORQKQSaTcWXIBzg8PITb7cbZ2RnGx8eblt2PAWinWCyG2dlZJu3g4CD29/dZH+BHIpGA3W5HMpnE6Ojo3wJQaVmtVmYuMlo0Gm0tAF3n8vKSlSWlZWdnp/UABEHtMhKJCHrgz1Lw+PiIu7s7mM1m1tn48fz8jFwuxxoMVQM/np6eWKVQ2ZJRm0U2m0VnZyd0Op1wJ2y6sgUD4t9yUQFRAVGBf8dK5LDpVJi2AAAAAElFTkSuQmCC">
+    <link rel="icon" type="image/png" sizes="16x16" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAUZJREFUOE/dkjHLglAUht8kyNTIIWh0ctEtGvwdUVNSPyFyimhIXWpuCFz9A9HS2h4EQYOD+BsaSkyD+3FPEHzwfRC0dbd7z+F53/OeW2KMMXxwSl8AKIqC3e93yLJMSaRpikqlguv1inq9Tm95niPLMhRF8SstXi8dj0fW6/VwPp8hiiImkwkGgwHm8zlWqxWazSbG4zEsy8LhcMDpdIIkSdB1HaPR6AnwfR/tdhvT6fQF4A622y0cx6HGMAxJfb1eE7TT6dCdALwxjmMsFgtS5Q4Mw0C/34emaeh2u2i1Wv8DNpsNhsMhARqNBmzbJsB+v8dyucRut3vN/qcDDnBdF7PZDFEUwfM8AiRJQtAgCN4D8LlN0yTFtwF5njO+olqtRiqXywWKoqBcLuPxeNA6VVV9ObjdbhAEAdVq9RniF3zlT0f4AcBDxm5CA3aOAAAAAElFTkSuQmCC">
+
+    <link rel="manifest" href="data:application/manifest+json;base64,eyJuYW1lIjoiIiwic2hvcnRfbmFtZSI6IiIsImljb25zIjpbeyJzcmMiOiIvYW5kcm9pZC1jaHJvbWUtMTkyeDE5Mi5wbmciLCJzaXplcyI6IjE5MngxOTIiLCJ0eXBlIjoiaW1hZ2UvcG5nIn0seyJzcmMiOiIvYW5kcm9pZC1jaHJvbWUtNTEyeDUxMi5wbmciLCJzaXplcyI6IjUxMng1MTIiLCJ0eXBlIjoiaW1hZ2UvcG5nIn1dLCJ0aGVtZV9jb2xvciI6IiNmZmZmZmYiLCJiYWNrZ3JvdW5kX2NvbG9yIjoiI2ZmZmZmZiIsImRpc3BsYXkiOiJzdGFuZGFsb25lIn0=">
+  <script type="module" crossorigin src="/new-york-times-website-clone/assets/index-265424fa.js"></script>
+  <link rel="stylesheet" href="/new-york-times-website-clone/assets/index-9dc9765f.css">
+</head>
+
+<body>
+    <noscript>Please enable Javascript to see navigate.</noscript>
+    <div id="root"></div>
+    
+</body>
+</html>
+
+
