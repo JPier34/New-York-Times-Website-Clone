@@ -15,7 +15,17 @@
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-} 
+}
+
+h1 {
+  font-size: 2.5em;
+}
+
+@media (max-width: 550px) {
+  h1 {
+    font-size: 2em;
+  }
+}
 
 a {
   font-weight: 500;
@@ -27,10 +37,6 @@ body {
   margin: 0;
   min-width: 320px;
   min-height: 100vh;
-}
-
-h1 {
-  font-size: 3.2em;
 }
 
 button {
@@ -53,8 +59,8 @@ button:focus-visible {
 
 @media (max-width: 1024px) {
   button {
-  padding: 0.6em 0.5em;
-}
+    padding: 0.6em 0.5em;
+  }
 }
 
 @media (prefers-color-scheme: light) {
@@ -69,4 +75,3 @@ button:focus-visible {
     background-color: #f9f9f9;
   }
 }
-

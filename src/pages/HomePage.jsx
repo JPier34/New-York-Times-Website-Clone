@@ -1,16 +1,16 @@
-import React, { useContext, useEffect, useState } from 'react';
-import { AppContext } from '../context/AppContext';
-import ArticleList from '../components/ArticleList';
-import axios from 'axios';
-import RelatedContent from '../components/RelatedContent';
-import Header from '../components/Header';
-import { useNavigate } from 'react-router-dom';
-import Footer from '../components/Footer';
-import '../App.css';
-import '../index.css';
+import React, { useContext, useEffect, useState } from "react";
+import { AppContext } from "../context/AppContext";
+import ArticleList from "../components/ArticleList";
+import axios from "axios";
+import RelatedContent from "../components/RelatedContent";
+import { useNavigate } from "react-router-dom";
+import Footer from "../components/Footer";
+import "../App.css";
+import "../index.css";
 
 const HomePage = () => {
-  const { articles, setArticles, setLoading, setError } = useContext(AppContext);
+  const { articles, setArticles, setLoading, setError } =
+    useContext(AppContext);
   const apiKey = import.meta.env.VITE_NY_TIMES_API_KEY;
   const navigate = useNavigate();
 
@@ -23,7 +23,7 @@ const HomePage = () => {
       setArticles(response.data.results.slice(0, 10));
       setLoading(false);
     } catch (error) {
-      setError('Error fetching articles');
+      setError("Error fetching articles");
       setLoading(false);
     }
   };
@@ -34,20 +34,19 @@ const HomePage = () => {
 
   const fetchArticleContent = (url) => {
     const encodedUrl = encodeURIComponent(url);
-    navigate(`/article/${encodedUrl}`); 
-  }
-  
+    navigate(`/article/${encodedUrl}`);
+  };
+
   return (
     <>
-      <Header />
       <section className="news-layout">
-          <ArticleList
-            articles={articles}
-            onFetchArticleContent={fetchArticleContent}
-          />
+        <ArticleList
+          articles={articles}
+          onFetchArticleContent={fetchArticleContent}
+        />
         <RelatedContent />
       </section>
-      <Footer className="footer"/>
+      <Footer className="footer" />
     </>
   );
 };
